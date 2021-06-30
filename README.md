@@ -100,10 +100,6 @@ The structure of the project is very easy to understand. The code of the documen
 
 This Repository have a example using the PetStore from Swagger with the sections Pet, Store and User. But with three sections introductories using the power of `SectionsItem` structures. Also there are a section for **Roles and Permissions**
 
-### Credits
-
-- [Swagger](https://swagger.io/)
-
 ### Run Documentation in your local Browser
 ```bash
 npm install && npm run start
@@ -113,3 +109,8 @@ npm install && npm run start
 ```bash
 npm install && npm run test
 ```
+
+### Credits
+
+- [Swagger](https://swagger.io/)
+- [OpenAPI](https://www.openapis.org/)
