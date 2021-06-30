@@ -2,6 +2,16 @@
 
 This is a template created in React to easily customize and build a REST API Documentation for commercial or development purposes. Project created using using create-react-app wth the typescript template
 
+Roles and Permissions      |  Preview Schema
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/12489333/124013991-59944b00-d9b9-11eb-825e-5a02a9b99487.jpeg)  |  ![](https://user-images.githubusercontent.com/12489333/124013983-57ca8780-d9b9-11eb-90b6-6a0227e8bac3.jpeg)
+
+Search      |  Endpoint Section
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/12489333/124014002-5b5e0e80-d9b9-11eb-90ae-90e42f798149.jpeg)  |  ![](https://user-images.githubusercontent.com/12489333/124014698-3a49ed80-d9ba-11eb-9357-4678e4ebe17c.jpeg)
+
+
+
 ### Merge Between custom content and your API contract
 
 You can easily sync you OpenAPI 3 JSON File using the "SectionItem" structure. In the next example you can see a SectionItem create for the Store tag from the PetStore Swagger example. This way can add images, descriptions, and introductory sections like "Getting Started"
