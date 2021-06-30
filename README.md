@@ -94,7 +94,7 @@ The structure of the project is very easy to understand. The code of the documen
 - `src/lib/adapter-ao3`: Logic to get content from OpenAPI3
 - `src/lib/components`: All UI components, you can change styles or logic easily (Modules CSS implemented)
 - `src/lib/hooks`: Hooks!
-- `src\lib\PrettyRestDoc`: Root Component
+- `src\lib/PrettyRestDoc.jsx`: Root Component
 
 ### Current example in this Repository
 
