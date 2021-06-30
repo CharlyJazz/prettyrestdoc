@@ -103,3 +103,13 @@ This Repository have a example using the PetStore from Swagger with the sections
 ### Credits
 
 - [Swagger](https://swagger.io/)
+
+### Run Documentation in your local Browser
+```bash
+npm install && npm run start
+```
+
+### Run Tests 
+```bash
+npm install && npm run test
+```
