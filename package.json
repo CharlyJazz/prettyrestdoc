@@ -2,6 +2,7 @@
   "name": "prettyrestdoc",
   "version": "0.1.0",
   "private": false,
+  "homepage": "https://charlyjazz.github.io/prettyrestdoc",
   "dependencies": {
     "@stoplight/json-ref-resolver": "^3.1.2",
     "@testing-library/jest-dom": "^5.14.1",
