@@ -1,5 +1,7 @@
 # PrettyRestDoc
 
+[Check it out the demo!](https://charlyjazz.github.io/prettyrestdoc/#User)
+
 This is a template created in React to easily customize and build a REST API Documentation for commercial or development purposes. Project created using using create-react-app wth the typescript template
 
 Roles and Permissions      |  Preview Schema
