@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false && react-scripts build",
+    "build": "CI=false && react-scripts build && cp manifest.json build/manifest.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

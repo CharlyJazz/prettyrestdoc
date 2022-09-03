@@ -1,0 +1,15 @@
+{
+  "short_name": "Prettyrest",
+  "name": "Pretty Rest API Documentacion",
+  "manifest_version": 3,
+  "version": "0.0.1",
+  "icons": { },
+  "action": {
+      "default_title": "Pretty Rest API Documentacion",
+      "default_popup": "index.html"
+  },
+  "permissions": [],
+  "host_permissions": [
+      "*://*/*"
+  ]
+}
