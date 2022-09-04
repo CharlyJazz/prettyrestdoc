@@ -3,7 +3,7 @@ $input_height: 36px;
 $border_color: #b6b6b673;
 $sidebar_width: 280px;
 $collapse_item_space_between: 15px;
-$padding-content: 150px;
+$padding-content: 100px;
 $gradient-fallback: #00c391;
 $gradient: linear-gradient(258.19deg, #00c391 -0.78%, #24c6dc 99.6%), #00c391;
 $text-color: #575757;
@@ -12,7 +12,7 @@ $text-color: #575757;
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
+  font-size: .8rem;
   line-height: 23px;
   color: black;
   text-transform: capitalize;
@@ -54,7 +54,7 @@ $text-color: #575757;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 1rem;
     line-height: 100%;
     vertical-align: 10px;
     margin-left: 2px;
@@ -125,7 +125,7 @@ $text-color: #575757;
         display: block;
         margin-top: 10px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: .8rem;
         font-family: Roboto;
         text-decoration: none;
         color: #575757;
@@ -176,8 +176,8 @@ $text-color: #575757;
       font-family: Roboto;
       font-style: normal;
       font-weight: bold;
-      font-size: 30px;
-      margin-bottom: 43px;
+      font-size: 1.2rem;
+      margin: 0;
     }
 
     .Flex {
@@ -198,10 +198,10 @@ $text-color: #575757;
           font-family: Roboto;
           font-style: normal;
           font-weight: normal;
-          font-size: 20px;
+          font-size: .9rem;
           line-height: 110%;
           color: $text-color;
-          margin-bottom: 30px;
+          margin-bottom: .9remx;
         }
       }
 
@@ -231,7 +231,7 @@ $text-color: #575757;
           font-family: Roboto;
           font-style: normal;
           font-weight: bold;
-          font-size: 20px;
+          font-size: 1rem;
           line-height: 105.4%;
           color: $text-color;
           margin-bottom: 13px;
@@ -241,7 +241,7 @@ $text-color: #575757;
           font-family: Roboto;
           font-style: normal;
           font-weight: normal;
-          font-size: 20px;
+          font-size: 1rem;
           line-height: 110%;
           color: $text-color;
         }
@@ -259,7 +259,7 @@ $text-color: #575757;
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 1rem;
     line-height: 105.4%;
 
     &:nth-child(1) {
@@ -330,10 +330,10 @@ $text-color: #575757;
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 1rem;
     line-height: 110%;
     color: $text-color;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   .CollapsablesItemsName {
@@ -353,7 +353,7 @@ $text-color: #575757;
         color: #020122;
         font-style: normal;
         font-weight: 900;
-        font-size: 16px;
+        font-size: .8rem;
         line-height: 110%;
       }
     }
@@ -399,7 +399,7 @@ $text-color: #575757;
         font-family: Roboto;
         font-style: normal;
         font-weight: 500;
-        font-size: 20px;
+        font-size: 1rem;
       }
     }
 
@@ -417,7 +417,7 @@ $text-color: #575757;
           font-family: Roboto;
           font-style: normal;
           font-weight: 500;
-          font-size: 18px;
+          font-size: .8rem;
           line-height: 105.4%;
           color: white;
 
@@ -547,10 +547,10 @@ $text-color: #575757;
   }
 
   @media (max-width: 1180px) {
-    font-size: 18px;
+    font-size: .8rem;
 
     &::placeholder {
-      font-size: 18px;
+      font-size: .8rem;
     }
   }
 }
@@ -603,7 +603,7 @@ $text-color: #575757;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 1rem;
     line-height: 110%;
   }
 
@@ -708,6 +708,7 @@ $text-color: #575757;
 
 .RolesAndPermissionsGrid {
   font-family: Roboto;
+  font-size: .9rem;
 }
 
 .RolesAndPermissionsGridColHeaderWrapper {
@@ -780,7 +781,7 @@ $text-color: #575757;
   font-family: Roboto;
   font-style: normal;
   font-weight: 900;
-  font-size: 18px;
+  font-size: .8rem;
   line-height: 110%;
   color: #020122;
   margin-top: 16px;
@@ -846,7 +847,7 @@ $text-color: #575757;
       font-family: Roboto;
       font-style: normal;
       font-weight: bold;
-      font-size: 16px;
+      font-size: .8rem;
       line-height: 110%;
       color: $text-color;
       margin-bottom: 1px;
