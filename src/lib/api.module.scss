@@ -1,18 +1,29 @@
-$input_bg_color: #f5f5f5;
-$input_height: 36px;
-$border_color: #b6b6b673;
-$sidebar_width: 280px;
-$collapse_item_space_between: 15px;
-$padding-content: 100px;
-$gradient-fallback: #00c391;
-$gradient: linear-gradient(258.19deg, #00c391 -0.78%, #24c6dc 99.6%), #00c391;
-$text-color: #575757;
+:root {
+  --main-color: #00c391;
+  --text-color: #575757;
+  --descriptive-text-font-size: .8rem;
+  --snippet-font-size: var(--descriptive-text-font-size);
+  --section-title-font-size: 1.2rem;
+  --section-main-description-font-size: .9rem;
+  --input_bg_color: #f5f5f5;
+  --input_height: 36px;
+  --border_color: #b6b6b673;
+  --sidebar_width: 280px;
+  --collapse_item_space_between: 15px;
+  --padding-content: 100px;
+  --gradient-fallback: var(--main-color);
+  --gradient: linear-gradient(258.19deg, var(--main-color) -0.78%, #24c6dc 99.6%), var(--main-color);
+  --text-color: #575757;
+  --title-doc-font-size: 1rem;
+  --collapsible-description-font-size: .8rem;
+  --background-color: #292937;
+}
 
 @mixin SearchFont {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: .8rem;
+  font-size: var(--descriptive-text-font-size);
   line-height: 23px;
   color: black;
   text-transform: capitalize;
@@ -28,7 +39,7 @@ $text-color: #575757;
 }
 
 .Wrapper {
-  border: 1px solid $border_color;
+  border: 1px solid var(--border_color);
   display: flex;
 
   @media (max-width: 1180px) {
@@ -39,7 +50,7 @@ $text-color: #575757;
 .EndpointWrapper {
   margin-top: 60px;
   padding-top: 60px;
-  border-top: 1px solid $border_color;
+  border-top: 1px solid var(--border_color);
   display: block;
   width: 100%;
 }
@@ -50,11 +61,11 @@ $text-color: #575757;
   }
 
   span {
-    color: $gradient-fallback;
+    color: var(--gradient-fallback);
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: var(--title-doc-font-size);
     line-height: 100%;
     vertical-align: 10px;
     margin-left: 2px;
@@ -63,18 +74,18 @@ $text-color: #575757;
 
 .Navigation {
   padding: 20px;
-  width: $sidebar_width;
-  border-right: 1px solid $border_color;
+  width: var(--sidebar_width);
+  border-right: 1px solid var(--border_color);
   position: fixed;
   height: 100%;
   box-sizing: border-box;
 
   @media (max-width: 1600px) {
-    width: #{$sidebar_width - 40};
+    width: #{var(--sidebar_width) - 40};
   }
 
   @media (max-width: 1280px) {
-    width: #{$sidebar_width - 80};
+    width: #{var(--sidebar_width) - 80};
   }
 
   @media (max-width: 1180px) {
@@ -99,8 +110,8 @@ $text-color: #575757;
 
     input {
       box-sizing: border-box;
-      height: $input_height;
-      background-color: $input_bg_color;
+      height: var(--input_height);
+      background-color: var(--input_bg_color);
       border: 1px solid transparent;
       outline: none;
       border-radius: 100px;
@@ -125,7 +136,7 @@ $text-color: #575757;
         display: block;
         margin-top: 10px;
         cursor: pointer;
-        font-size: .8rem;
+        font-size: var(--descriptive-text-font-size);
         font-family: Roboto;
         text-decoration: none;
         color: #575757;
@@ -136,15 +147,15 @@ $text-color: #575757;
 
 .Content {
   flex: 1;
-  margin-left: $sidebar_width;
-  width: calc(100% - #{$sidebar_width});
+  margin-left: var(--sidebar_width);
+  width: calc(100% - #{var(--sidebar_width)});
 
   @media (max-width: 1600px) {
-    margin-left: #{$sidebar_width - 40};
+    margin-left: #{var(--sidebar_width) - 40};
   }
 
   @media (max-width: 1280px) {
-    margin-left: #{$sidebar_width - 80};
+    margin-left: #{var(--sidebar_width) - 80};
   }
 
   @media (max-width: 1180px) {
@@ -153,22 +164,22 @@ $text-color: #575757;
 
   > div {
     min-height: 90vh;
-    padding: $padding-content;
+    padding: var(--padding-content);
 
     @media (max-width: 1600px) {
-      padding: #{$padding-content - 40};
+      padding: calc(var(--padding-content) - 40);
     }
 
     @media (max-width: 1480px) {
-      padding: #{$padding-content - 80};
+      padding: cal(var(--padding-content) - 80);
     }
 
     @media (max-width: 1280px) {
-      padding: #{$padding-content - 120};
+      padding: cal(var(--padding-content) - 120);
     }
 
     &:not(:first-child) {
-      border-top: 1px solid $border_color;
+      border-top: 1px solid var(--border_color);
     }
 
     h2 {
@@ -176,7 +187,7 @@ $text-color: #575757;
       font-family: Roboto;
       font-style: normal;
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: var(--section-title-font-size);
       margin: 0;
     }
 
@@ -198,10 +209,9 @@ $text-color: #575757;
           font-family: Roboto;
           font-style: normal;
           font-weight: normal;
-          font-size: .9rem;
+          font-size: var(--section-main-description-font-size);
           line-height: 110%;
-          color: $text-color;
-          margin-bottom: .9remx;
+          color: var(--text-color);
         }
       }
 
@@ -231,9 +241,9 @@ $text-color: #575757;
           font-family: Roboto;
           font-style: normal;
           font-weight: bold;
-          font-size: 1rem;
+          font-size: var(--section-main-description-font-size);
           line-height: 105.4%;
-          color: $text-color;
+          color: var(--text-color);
           margin-bottom: 13px;
         }
 
@@ -241,9 +251,9 @@ $text-color: #575757;
           font-family: Roboto;
           font-style: normal;
           font-weight: normal;
-          font-size: 1rem;
+          font-size: var(--section-main-description-font-size);
           line-height: 110%;
-          color: $text-color;
+          color: var(--text-color);
         }
       }
     }
@@ -259,11 +269,11 @@ $text-color: #575757;
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: var(--section-main-description-font-size);
     line-height: 105.4%;
 
     &:nth-child(1) {
-      color: $gradient-fallback;
+      color: var(--gradient-fallback);
       padding: 10px;
       background: #020122;
     }
@@ -272,7 +282,7 @@ $text-color: #575757;
       color: #e0e0e0;
       height: 58px;
       padding-top: 18px;
-      background: #292937;
+      background: var(--background-color);
     }
   }
 
@@ -295,8 +305,7 @@ $text-color: #575757;
     padding: 10px;
     font-family: Roboto;
     font-style: normal;
-    font-size: 14px;
-    color: #292937;
+    font-size: var(--snippet-font-size);
   }
 }
 
@@ -330,16 +339,16 @@ $text-color: #575757;
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: var(--section-main-description-font-size);
     line-height: 110%;
-    color: $text-color;
+    color: var(--text-color);
     margin-bottom: 10px;
   }
 
   .CollapsablesItemsName {
-    margin-bottom: $collapse_item_space_between;
-    padding-top: $collapse_item_space_between;
-    border-top: 1px solid $border_color;
+    margin-bottom: var(--collapse_item_space_between);
+    padding-top: var(--collapse_item_space_between);
+    border-top: 1px solid var(--border_color);
     display: flex;
     align-items: center;
 
@@ -353,7 +362,7 @@ $text-color: #575757;
         color: #020122;
         font-style: normal;
         font-weight: 900;
-        font-size: .8rem;
+        font-size: var(--descriptive-text-font-size);
         line-height: 110%;
       }
     }
@@ -369,11 +378,11 @@ $text-color: #575757;
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
+    font-size: var(--collapsible-description-font-size);
     line-height: 110%;
-    color: $text-color;
+    color: var(--text-color);
     display: block;
-    margin-bottom: $collapse_item_space_between;
+    margin-bottom: var(--collapse_item_space_between);
 
     @media (max-width: 768px) {
       word-break: break-all;
@@ -391,7 +400,7 @@ $text-color: #575757;
     &:nth-child(1) {
       height: 40px;
       background: #020122;
-      color: $gradient-fallback;
+      color: var(--gradient-fallback);
       padding-left: 10px;
       padding-top: 4px;
 
@@ -399,13 +408,13 @@ $text-color: #575757;
         font-family: Roboto;
         font-style: normal;
         font-weight: 500;
-        font-size: 1rem;
+        font-size: var(--section-main-description-font-size);
       }
     }
 
     &:nth-child(2) {
       padding: 10px;
-      background: #292937;
+      background: var(--background-color);
       padding-left: 10px;
       padding-top: 16px;
 
@@ -417,7 +426,7 @@ $text-color: #575757;
           font-family: Roboto;
           font-style: normal;
           font-weight: 500;
-          font-size: .8rem;
+          font-size: var(--descriptive-text-font-size);
           line-height: 105.4%;
           color: white;
 
@@ -450,11 +459,11 @@ $text-color: #575757;
 }
 
 .NavigationItemActive {
-  color: $gradient-fallback;
+  color: var(--gradient-fallback);
   font-weight: 600;
-  background-color: $gradient-fallback;
-  background-image: $gradient;
-  background: $gradient;
+  background-color: var(--gradient-fallback);
+  background-image: var(--gradient);
+  background: var(--gradient);
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -547,10 +556,10 @@ $text-color: #575757;
   }
 
   @media (max-width: 1180px) {
-    font-size: .8rem;
+    font-size: var(--descriptive-text-font-size);
 
     &::placeholder {
-      font-size: .8rem;
+      font-size: var(--descriptive-text-font-size);
     }
   }
 }
@@ -572,7 +581,7 @@ $text-color: #575757;
   }
 
   &:not(:last-child) {
-    border-bottom: 1px solid $border_color;
+    border-bottom: 1px solid var(--border_color);
   }
 
   @media (max-width: 1180px) {
@@ -589,7 +598,7 @@ $text-color: #575757;
   position: absolute;
   align-items: center;
   padding: 20px;
-  color: $gradient-fallback;
+  color: var(--gradient-fallback);
   box-sizing: border-box;
 
   .HeaderFirstDiv {
@@ -603,7 +612,7 @@ $text-color: #575757;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: var(--section-main-description-font-size);
     line-height: 110%;
   }
 
@@ -709,6 +718,7 @@ $text-color: #575757;
 .RolesAndPermissionsGrid {
   font-family: Roboto;
   font-size: .9rem;
+  color: var(--text-color)
 }
 
 .RolesAndPermissionsGridColHeaderWrapper {
@@ -765,8 +775,8 @@ $text-color: #575757;
   width: 20px;
   height: 20px;
   border-radius: 15px;
-  background: linear-gradient(258.19deg, #00c391 -0.78%, #24c6dc 99.6%),
-    linear-gradient(258.19deg, #00c391 -0.78%, #24c6dc);
+  background: linear-gradient(258.19deg, var(--main-color) -0.78%, #24c6dc 99.6%),
+    linear-gradient(258.19deg, var(--main-color) -0.78%, #24c6dc);
   box-shadow: 0px 1px 4px rgba(0, 103, 77, 0.54);
 }
 
@@ -781,16 +791,16 @@ $text-color: #575757;
   font-family: Roboto;
   font-style: normal;
   font-weight: 900;
-  font-size: .8rem;
+  font-size: var(--descriptive-text-font-size);
   line-height: 110%;
   color: #020122;
   margin-top: 16px;
 }
 
 .Green {
-  background-color: $gradient-fallback;
-  background-image: $gradient;
-  background: $gradient;
+  background-color: var(--gradient-fallback);
+  background-image: var(--gradient);
+  background: var(--gradient);
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -802,12 +812,12 @@ $text-color: #575757;
 .HTTPMethod {
   &.GET {
     background-color: #24c6dc;
-    background: linear-gradient(258.19deg, #00c391 -0.78%, #24c6dc 99.6%),
-      linear-gradient(258.19deg, #00c391 -0.78%, #24c6dc 99.6%),
-      linear-gradient(258.19deg, #00c391 -0.78%, #24c6dc 99.6%);
-    background-image: linear-gradient(258.19deg, #00c391 -0.78%, #24c6dc 99.6%),
-      linear-gradient(258.19deg, #00c391 -0.78%, #24c6dc 99.6%),
-      linear-gradient(258.19deg, #00c391 -0.78%, #24c6dc 99.6%);
+    background: linear-gradient(258.19deg, var(--main-color) -0.78%, #24c6dc 99.6%),
+      linear-gradient(258.19deg, var(--main-color) -0.78%, #24c6dc 99.6%),
+      linear-gradient(258.19deg, var(--main-color) -0.78%, #24c6dc 99.6%);
+    background-image: linear-gradient(258.19deg, var(--main-color) -0.78%, #24c6dc 99.6%),
+      linear-gradient(258.19deg, var(--main-color) -0.78%, #24c6dc 99.6%),
+      linear-gradient(258.19deg, var(--main-color) -0.78%, #24c6dc 99.6%);
   }
 
   &.POST {
@@ -847,9 +857,9 @@ $text-color: #575757;
       font-family: Roboto;
       font-style: normal;
       font-weight: bold;
-      font-size: .8rem;
+      font-size: var(--descriptive-text-font-size);
       line-height: 110%;
-      color: $text-color;
+      color: var(--text-color);
       margin-bottom: 1px;
     }
   }
