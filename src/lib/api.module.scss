@@ -9,7 +9,7 @@
   --input_height: 36px;
   --border_color: #b6b6b673;
   --sidebar_width: 280px;
-  --collapse_item_space_between: 15px;
+  --collapse_item_space_between: 10px;
   --padding-content: 100px;
   --gradient-fallback: var(--main-color);
   --gradient: linear-gradient(258.19deg, var(--main-color) -0.78%, #24c6dc 99.6%), var(--main-color);
@@ -17,6 +17,11 @@
   --title-doc-font-size: 1rem;
   --collapsible-description-font-size: .8rem;
   --background-color: #292937;
+  --width-resource-column: 20%;
+  --width-action-column: 10%;
+  --width-path-column: 40%;
+  --width-client-column: 15%;
+  --width-admin-column: 15%;
 }
 
 @mixin SearchFont {
@@ -81,11 +86,11 @@
   box-sizing: border-box;
 
   @media (max-width: 1600px) {
-    width: #{var(--sidebar_width) - 40};
+    width: calc(var(--sidebar_width) - 40px);
   }
 
   @media (max-width: 1280px) {
-    width: #{var(--sidebar_width) - 80};
+    width: calc(var(--sidebar_width) - 80px);
   }
 
   @media (max-width: 1180px) {
@@ -148,14 +153,14 @@
 .Content {
   flex: 1;
   margin-left: var(--sidebar_width);
-  width: calc(100% - #{var(--sidebar_width)});
+  width: calc(100% - var(--sidebar_width));
 
   @media (max-width: 1600px) {
-    margin-left: #{var(--sidebar_width) - 40};
+    margin-left: calc(var(--sidebar_width) - 40px);
   }
 
   @media (max-width: 1280px) {
-    margin-left: #{var(--sidebar_width) - 80};
+    margin-left: calc(var(--sidebar_width) - 80px);
   }
 
   @media (max-width: 1180px) {
@@ -167,15 +172,11 @@
     padding: var(--padding-content);
 
     @media (max-width: 1600px) {
-      padding: calc(var(--padding-content) - 40);
+      padding: calc(var(--padding-content) - 40px);
     }
 
     @media (max-width: 1480px) {
-      padding: cal(var(--padding-content) - 80);
-    }
-
-    @media (max-width: 1280px) {
-      padding: cal(var(--padding-content) - 120);
+      padding: calc(var(--padding-content) - 80px);
     }
 
     &:not(:first-child) {
@@ -326,7 +327,7 @@
     margin-left: 20px;
     border: 1px solid #dededea6;
     border-radius: 5px;
-    padding: 14px;
+    padding: var(--collapse_item_space_between);
     margin-bottom: 20px;
 
     > button:nth-child(2) > div:nth-child(1) {
@@ -715,6 +716,8 @@
   }
 }
 
+// Variables para cada columna
+
 .RolesAndPermissionsGrid {
   font-family: Roboto;
   font-size: .9rem;
@@ -726,24 +729,50 @@
 }
 
 .RolesAndPermissionsGridColHeaderWrapper > div {
-  width: 15%;
   display: inline-block;
 }
 
 .RolesAndPermissionsGridColHeaderWrapper > div:nth-child(1) {
-  width: 20%;
+  width: var(--width-resource-column);
 }
 
 .RolesAndPermissionsGridColHeaderWrapper > div:nth-child(2) {
-  width: 15%;
+  width: var(--width-action-column);
 }
 
 .RolesAndPermissionsGridColHeaderWrapper > div:nth-child(3) {
-  width: 20%;
+  width: var(--width-path-column);
+}
+
+.RolesAndPermissionsGridColHeaderWrapper > div:nth-child(4) {
+  width: var(--width-client-column);
+}
+
+.RolesAndPermissionsGridColHeaderWrapper > div:nth-child(5) {
+  width: var(--width-admin-column);
 }
 
 .RolesAndPermissionsGridRow {
   width: 100%;
+
+  &:after {
+    content: '';
+    display: block;
+    background: var(--gradient);
+    width: 100px;
+    height: 3px;
+    position: relative;
+    top: 15px;
+  }
+}
+
+.RolesAndPermissionsGrid {
+  > .RolesAndPermissionsGridRow:last-child {
+
+    &:after {
+      display: none
+    }
+  }
 }
 
 .RolesAndPermissionsGridRow > div {
@@ -754,21 +783,35 @@
   margin-bottom: 40px;
 }
 
+.RolesAndPermissionsGridRow > div {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
 .RolesAndPermissionsGridRow > div > div {
-  width: 15%;
   display: inline-block;
 }
 
 .RolesAndPermissionsGridRow > div > div:nth-child(1) {
-  width: 20%;
+  width: var(--width-resource-column);
 }
 
 .RolesAndPermissionsGridRow > div > div:nth-child(2) {
-  width: 15%;
+  width: var(--width-action-column);
 }
 
 .RolesAndPermissionsGridRow > div > div:nth-child(3) {
-  width: 20%;
+  width: var(--width-path-column);
+}
+
+.RolesAndPermissionsGridRow > div > div:nth-child(4) {
+  width: var(--width-client-column);
+}
+
+.RolesAndPermissionsGridRow > div > div:nth-child(5) {
+  width: var(--width-admin-column);
 }
 
 .RolesAndPermissionsCircle {
