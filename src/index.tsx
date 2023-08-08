@@ -1,26 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import PrettyRestDoc from './lib/PrettyRestDoc';
-import docSwagger from "./petstore.json";
-import APIDoc from "./doc";
 import { OpenAPIV3 } from "openapi-types";
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import APIDoc from "./doc";
+import "./index.css";
+import PrettyRestDoc from "./lib/PrettyRestDoc";
+import docSwagger from "./petstore.json";
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
   <React.StrictMode>
-    <PrettyRestDoc
-     docCustom={APIDoc}
-      docSwagger={docSwagger as unknown as OpenAPIV3.Document}
-      roles={[
-        {
-        label: "Client",
-        value: 'client'
-      },
-      {
-        label: "Admin",
-        value: 'admin'
-      }]}
+    <React.StrictMode>
+      <PrettyRestDoc
+        docCustom={APIDoc}
+        docSwagger={docSwagger as unknown as OpenAPIV3.Document}
+        roles={[
+          {
+            label: "Client",
+            value: "client",
+          },
+          {
+            label: "Admin",
+            value: "admin",
+          },
+        ]}
       />
-  </React.StrictMode>,
-  document.getElementById('root')
-);  
+    </React.StrictMode>
+  </React.StrictMode>
+);

@@ -1,5 +1,8 @@
 html,
 body {
-  margin: 0;
   padding: 0;
+  margin: 0;
+  /* Just for the extension */
+  height: 600px;
+  width: 800px;
 }

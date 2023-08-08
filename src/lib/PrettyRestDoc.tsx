@@ -1,11 +1,18 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import { OpenAPIV3 } from "openapi-types";
+import React, {
+  FC,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react";
+import { SECTION_ID } from "../constants";
+import AdaptarOA3 from "./adapter-oa3/adapter/Adapter";
 import style from "./api.module.scss";
-import Section from "./components/Section";
+import Header from "./components/Header";
 import { Navigation } from "./components/Navigation";
 import { SearchModal } from "./components/SearchModal";
-import Header from "./components/Header";
-import AdaptarOA3 from "./adapter-oa3/adapter/Adapter";
-import { OpenAPIV3 } from "openapi-types";
+import Section from "./components/Section";
 
 interface Props {
   docSwagger: OpenAPIV3.Document;
@@ -13,15 +20,37 @@ interface Props {
   roles?: Role[];
 }
 
-const PrettyRestDoc: FC<Props> = ({docCustom, docSwagger, roles}) => {
+const PrettyRestDoc: FC<Props> = ({ docCustom, docSwagger, roles }) => {
   const [APIDoc, setAPIDOC] = useState<SectionItem[]>([]);
   const [section, setSection] = useState<string>("");
   const [searchModal, setSearchModal] = useState<boolean>(false);
+
   const initDoc = async () => {
     const adapter = new AdaptarOA3(docSwagger, docCustom);
     const docMerged = await adapter.createDocumentation();
     setAPIDOC(docMerged);
   };
+
+  const isChromeExtensionMode =
+    window.chrome && chrome.runtime && chrome.runtime.id;
+
+  // Persitency of the navigation
+  useLayoutEffect(() => {
+    if (!isChromeExtensionMode) return;
+
+    if (chrome.storage) {
+      chrome.storage.local.get([SECTION_ID]).then((result) => {
+        setTimeout(() => {
+          const anchorElement = document.getElementById(result.SECTION_ID);
+          if (anchorElement) {
+            window.scrollTo(0, anchorElement.offsetTop);
+          }
+          setSection(result.SECTION_ID);
+        }, 1000);
+      });
+    }
+  }, []);
+
   useEffect(() => {
     initDoc();
     document.title = "Pretty Rest Doc";
@@ -57,17 +86,29 @@ const PrettyRestDoc: FC<Props> = ({docCustom, docSwagger, roles}) => {
       document.removeEventListener("keyup", eventsHandlers["keyup"]);
     };
   }, []);
+
+  // Persitency of the navigation
+  React.useEffect(() => {
+    if (!isChromeExtensionMode) return;
+
+    if (chrome.storage) {
+      chrome.storage.local.set({ [SECTION_ID]: section });
+    }
+  }, [section]);
+
   const openSearchModal = () => {
     setSearchModal(true);
   };
+
   const closeSearchModal = () => {
     setSearchModal(false);
   };
+
   // Optimization of items
   // https://stackoverflow.com/questions/63531652/how-do-i-apply-react-memo-to-all-components-in-an-array
   const items = APIDoc.map((n, i) => {
     return (
-      <div key={i}>
+      <div key={n.title}>
         <Section
           {...n}
           onIntercepted={(id) => setSection(id)}
@@ -77,15 +118,19 @@ const PrettyRestDoc: FC<Props> = ({docCustom, docSwagger, roles}) => {
       </div>
     );
   });
+
   const memoizedItems = useMemo(() => {
     return items.map((item) => React.memo(() => item));
   }, [APIDoc]);
+
   let itemarray = [];
   let index = 0;
+
   for (const MemoizedItem of memoizedItems) {
     itemarray.push(<MemoizedItem key={index} />);
     index++;
   }
+
   return (
     <>
       <Header openSearchModal={openSearchModal} />
