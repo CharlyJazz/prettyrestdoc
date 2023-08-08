@@ -35,6 +35,7 @@ const Section: FC<SectionProps> = ({
   const onScreen = useOnScreen(ref);
   useEffect(() => {
     if (onScreen) {
+      console.log(title);
       onIntercepted(title);
     }
   }, [onScreen]);
@@ -139,7 +140,7 @@ const Section: FC<SectionProps> = ({
         </div>
       ) : null}
       {title === "Roles & Permissions" && roles && (
-        <RolesAndPermissionsGrid APIDoc={APIDoc} roles={roles}/>
+        <RolesAndPermissionsGrid APIDoc={APIDoc} roles={roles} />
       )}
     </>
   );

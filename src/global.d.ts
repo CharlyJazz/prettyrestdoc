@@ -69,7 +69,6 @@ interface SectionItem {
   is_core_resource?: boolean;
 }
 
-
 interface Role {
   label: string;
   value: string;

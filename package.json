@@ -8,17 +8,18 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@types/chrome": "^0.0.243",
     "@types/jest": "^26.0.23",
     "@types/node": "^12.20.15",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.8",
-    "node-sass": "^6.0.1",
     "openapi-types": "^9.0.3",
     "react": "^17.0.2",
     "react-collapse": "^5.1.0",
     "react-dom": "^17.0.2",
     "react-highlight": "^0.14.0",
     "react-scripts": "4.0.3",
+    "sass": "^1.64.2",
     "typescript": "^4.3.4",
     "web-vitals": "^1.1.2"
   },
@@ -44,6 +45,9 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
+    ],
+    "resolutions": {
+      "react-error-overlay": "6.0.9"
+    }
   }
 }

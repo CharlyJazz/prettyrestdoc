@@ -6,6 +6,7 @@ import { SearchModal } from "./components/SearchModal";
 import Header from "./components/Header";
 import AdaptarOA3 from "./adapter-oa3/adapter/Adapter";
 import { OpenAPIV3 } from "openapi-types";
+import { SECTION_ID } from "../constants";
 
 interface Props {
   docSwagger: OpenAPIV3.Document;
@@ -13,18 +14,34 @@ interface Props {
   roles?: Role[];
 }
 
-const PrettyRestDoc: FC<Props> = ({docCustom, docSwagger, roles}) => {
+const PrettyRestDoc: FC<Props> = ({ docCustom, docSwagger, roles }) => {
   const [APIDoc, setAPIDOC] = useState<SectionItem[]>([]);
   const [section, setSection] = useState<string>("");
   const [searchModal, setSearchModal] = useState<boolean>(false);
+
   const initDoc = async () => {
     const adapter = new AdaptarOA3(docSwagger, docCustom);
     const docMerged = await adapter.createDocumentation();
     setAPIDOC(docMerged);
   };
+
   useEffect(() => {
     initDoc();
     document.title = "Pretty Rest Doc";
+
+    // Persitency of the navigation
+    if (chrome.storage) {
+      chrome.storage.local.get([SECTION_ID]).then((result) => {
+        setSection(result.SECTION_ID);
+        location.href = "#" + result.SECTION_ID;
+      });
+    } else {
+      const sectionSaved = localStorage.getItem(SECTION_ID);
+      if (sectionSaved) {
+        setSection(sectionSaved);
+        location.href = "#" + sectionSaved;
+      }
+    }
 
     const eventsHandlers: any = { keydown: null, keyup: null };
     let ctrl = false;
@@ -57,12 +74,24 @@ const PrettyRestDoc: FC<Props> = ({docCustom, docSwagger, roles}) => {
       document.removeEventListener("keyup", eventsHandlers["keyup"]);
     };
   }, []);
+
+  // Persitency of the navigation
+  React.useEffect(() => {
+    if (chrome.storage) {
+      chrome.storage.local.set({ [SECTION_ID]: section });
+    } else {
+      localStorage.setItem(SECTION_ID, section);
+    }
+  }, [section]);
+
   const openSearchModal = () => {
     setSearchModal(true);
   };
+
   const closeSearchModal = () => {
     setSearchModal(false);
   };
+
   // Optimization of items
   // https://stackoverflow.com/questions/63531652/how-do-i-apply-react-memo-to-all-components-in-an-array
   const items = APIDoc.map((n, i) => {
@@ -77,15 +106,19 @@ const PrettyRestDoc: FC<Props> = ({docCustom, docSwagger, roles}) => {
       </div>
     );
   });
+
   const memoizedItems = useMemo(() => {
     return items.map((item) => React.memo(() => item));
   }, [APIDoc]);
+
   let itemarray = [];
   let index = 0;
+
   for (const MemoizedItem of memoizedItems) {
     itemarray.push(<MemoizedItem key={index} />);
     index++;
   }
+
   return (
     <>
       <Header openSearchModal={openSearchModal} />
