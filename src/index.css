@@ -2,6 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  /* height: 600px;
-  width: 800px; */
+  /* Just for the extension */
+  height: 600px;
+  width: 800px;
 }

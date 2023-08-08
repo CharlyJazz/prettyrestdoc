@@ -1,12 +1,12 @@
-import React, { FC, useEffect, useRef } from "react";
-import { text } from "./Green";
-import SnippetContent from "./SnippetContent/SnippetContent";
+import { FC, useLayoutEffect, useRef } from "react";
 import style from "../api.module.scss";
-import EndpointList from "./EndpointList";
-import { Endpoint } from "./Endpoint";
 import useOnScreen from "../hooks/useOnScreen";
-import RolesAndPermissionsGrid from "./RolesAndPermissionsGrid";
 import { CollapsablesItems } from "./CollapseItem";
+import { Endpoint } from "./Endpoint";
+import EndpointList from "./EndpointList";
+import { text } from "./Green";
+import RolesAndPermissionsGrid from "./RolesAndPermissionsGrid";
+import SnippetContent from "./SnippetContent/SnippetContent";
 
 interface SectionProps extends SectionItem {
   endpointMode?: boolean;
@@ -31,14 +31,17 @@ const Section: FC<SectionProps> = ({
   let informativeRightSnippet = null;
   let theObjectSection = null;
   let paragraphsDescription = null;
+
   const ref = useRef<HTMLDivElement>(null);
+
   const onScreen = useOnScreen(ref);
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     if (onScreen) {
-      console.log(title);
       onIntercepted(title);
     }
   }, [onScreen]);
+
   if (
     content &&
     content?.left_section_paragraphs &&
@@ -77,6 +80,7 @@ const Section: FC<SectionProps> = ({
   if (endpoints && endpoints.length) {
     endpointsTags = <EndpointList endpoints={endpoints} />;
   }
+
   return (
     <>
       <div ref={ref} id={title}>

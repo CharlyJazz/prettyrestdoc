@@ -1,12 +1,18 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import { OpenAPIV3 } from "openapi-types";
+import React, {
+  FC,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react";
+import { SECTION_ID } from "../constants";
+import AdaptarOA3 from "./adapter-oa3/adapter/Adapter";
 import style from "./api.module.scss";
-import Section from "./components/Section";
+import Header from "./components/Header";
 import { Navigation } from "./components/Navigation";
 import { SearchModal } from "./components/SearchModal";
-import Header from "./components/Header";
-import AdaptarOA3 from "./adapter-oa3/adapter/Adapter";
-import { OpenAPIV3 } from "openapi-types";
-import { SECTION_ID } from "../constants";
+import Section from "./components/Section";
 
 interface Props {
   docSwagger: OpenAPIV3.Document;
@@ -25,23 +31,29 @@ const PrettyRestDoc: FC<Props> = ({ docCustom, docSwagger, roles }) => {
     setAPIDOC(docMerged);
   };
 
+  const isChromeExtensionMode =
+    window.chrome && chrome.runtime && chrome.runtime.id;
+
+  // Persitency of the navigation
+  useLayoutEffect(() => {
+    if (!isChromeExtensionMode) return;
+
+    if (chrome.storage) {
+      chrome.storage.local.get([SECTION_ID]).then((result) => {
+        setTimeout(() => {
+          const anchorElement = document.getElementById(result.SECTION_ID);
+          if (anchorElement) {
+            window.scrollTo(0, anchorElement.offsetTop);
+          }
+          setSection(result.SECTION_ID);
+        }, 1000);
+      });
+    }
+  }, []);
+
   useEffect(() => {
     initDoc();
     document.title = "Pretty Rest Doc";
-
-    // Persitency of the navigation
-    if (chrome.storage) {
-      chrome.storage.local.get([SECTION_ID]).then((result) => {
-        setSection(result.SECTION_ID);
-        location.href = "#" + result.SECTION_ID;
-      });
-    } else {
-      const sectionSaved = localStorage.getItem(SECTION_ID);
-      if (sectionSaved) {
-        setSection(sectionSaved);
-        location.href = "#" + sectionSaved;
-      }
-    }
 
     const eventsHandlers: any = { keydown: null, keyup: null };
     let ctrl = false;
@@ -77,10 +89,10 @@ const PrettyRestDoc: FC<Props> = ({ docCustom, docSwagger, roles }) => {
 
   // Persitency of the navigation
   React.useEffect(() => {
+    if (!isChromeExtensionMode) return;
+
     if (chrome.storage) {
       chrome.storage.local.set({ [SECTION_ID]: section });
-    } else {
-      localStorage.setItem(SECTION_ID, section);
     }
   }, [section]);
 
@@ -96,7 +108,7 @@ const PrettyRestDoc: FC<Props> = ({ docCustom, docSwagger, roles }) => {
   // https://stackoverflow.com/questions/63531652/how-do-i-apply-react-memo-to-all-components-in-an-array
   const items = APIDoc.map((n, i) => {
     return (
-      <div key={i}>
+      <div key={n.title}>
         <Section
           {...n}
           onIntercepted={(id) => setSection(id)}

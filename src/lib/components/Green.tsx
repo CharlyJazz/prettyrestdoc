@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import { PropsWithChildren } from "react";
 import style from "../api.module.scss";
 
-const Green: FC<{ children: React.ElementType }> = ({ children }) => (
+const Green = ({ children }: PropsWithChildren) => (
   <span className={style.Green}>{children}</span>
 );
 

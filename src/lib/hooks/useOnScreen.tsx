@@ -7,7 +7,7 @@ function useOnScreen(ref: any) {
     ([entry]) => setIntersecting(entry.isIntersecting),
     {
       // Some views need differents threshold
-      threshold: 0.1,
+      threshold: 0,
     }
   );
 
