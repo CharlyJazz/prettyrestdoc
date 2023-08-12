@@ -3,11 +3,15 @@
   "name": "Pretty Rest API Documentacion",
   "manifest_version": 3,
   "version": "0.0.1",
-  "icons": {},
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "action": {
     "default_title": "Pretty Rest API Documentacion",
     "default_popup": "index.html"
   },
-  "permissions": ["fileBrowserHandler", "background", "storage"],
-  "host_permissions": ["*://*/*"]
+  "permissions": ["storage"]
 }
