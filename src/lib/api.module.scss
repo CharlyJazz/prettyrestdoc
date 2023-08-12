@@ -46,10 +46,6 @@
 .Wrapper {
   border: 1px solid var(--border_color);
   display: flex;
-
-  @media (max-width: 1180px) {
-    margin-top: 60px;
-  }
 }
 
 .EndpointWrapper {
@@ -595,16 +591,11 @@
   height: 60px;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
-  position: absolute;
+  justify-content: space-between;
   align-items: center;
   padding: 20px;
   color: var(--gradient-fallback);
   box-sizing: border-box;
-
-  .HeaderFirstDiv {
-    display: none;
-  }
 
   .HeaderSecondDiv {
     display: flex;
@@ -626,21 +617,6 @@
     align-items: center;
     justify-content: space-between;
     width: 43px;
-  }
-
-  @media (max-width: 1180px) {
-    top: 0;
-    position: fixed;
-    z-index: 5;
-    justify-content: space-between;
-    padding: 20px 28px;
-    background-color: #fff;
-    box-shadow: 0 15px 35px 0 rgba(59, 65, 94, 0.1);
-
-    .HeaderFirstDiv {
-      display: block;
-      margin-top: 10px;
-    }
   }
 }
 
