@@ -1,3 +1,9 @@
+name: Deploy Documentation in Github Pages
+
+on:
+  push:
+    branches: [main]
+
 jobs:
   build_test:
     runs-on: ubuntu-latest
