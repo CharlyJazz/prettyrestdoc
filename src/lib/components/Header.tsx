@@ -1,7 +1,30 @@
-import React, { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import style from "../api.module.scss";
 
-const Header: FC<{ openSearchModal(): void }> = ({ openSearchModal }) => {
+interface HeaderProps {
+  openSearchModal(): void;
+  fileInput: boolean;
+  onFileUpload?(file: File): void;
+}
+
+const Header: FC<HeaderProps> = ({
+  openSearchModal,
+  fileInput,
+  onFileUpload,
+}) => {
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    try {
+      const file = event.target.files?.[0];
+      if (file) {
+        if (onFileUpload) {
+          onFileUpload(file);
+        }
+      }
+    } catch (error) {
+      alert(`Error handling file: ${error}`);
+    }
+  };
+
   return (
     <div className={style.Header}>
       <div className={style.HeaderFirstDiv}>
@@ -9,6 +32,15 @@ const Header: FC<{ openSearchModal(): void }> = ({ openSearchModal }) => {
           <span>API</span>
         </h1>
       </div>
+      {fileInput ? (
+        <input
+          type="file"
+          name="file"
+          id="file"
+          accept="application/json"
+          onChange={handleFileChange}
+        />
+      ) : null}
       <div className={style.HeaderSecondDiv}>
         <button onClick={openSearchModal} className={style.HeaderButtonSearch}>
           ...

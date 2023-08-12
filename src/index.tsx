@@ -25,6 +25,7 @@ root.render(
             value: "admin",
           },
         ]}
+        fileInput
       />
     </React.StrictMode>
   </React.StrictMode>

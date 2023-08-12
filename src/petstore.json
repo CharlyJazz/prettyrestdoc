@@ -47,13 +47,8 @@
   "paths": {
     "/pet": {
       "put": {
-        "roles": [
-          "client",
-          "admin"
-        ],
-        "tags": [
-          "pet"
-        ],
+        "roles": ["client", "admin"],
+        "tags": ["pet"],
         "summary": "Update an existing pet",
         "description": "Update an existing pet by Id",
         "operationId": "updatePet",
@@ -106,23 +101,14 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "petstore_auth": ["write:pets", "read:pets"]
           }
         ]
       },
       "post": {
-        "roles": [
-          "client"
-        ],
-        "roles": [
-          "admin"
-        ],
-        "tags": [
-          "pet"
-        ],
+        "roles": ["client"],
+        "roles": ["admin"],
+        "tags": ["pet"],
         "summary": "Add a new pet to the store",
         "description": "Add a new pet to the store",
         "operationId": "addPet",
@@ -169,22 +155,15 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "petstore_auth": ["write:pets", "read:pets"]
           }
         ]
       }
     },
     "/pet/findByStatus": {
       "get": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "pet"
-        ],
+        "roles": ["client"],
+        "tags": ["pet"],
         "summary": "Finds Pets by status",
         "description": "Multiple status values can be provided with comma separated strings",
         "operationId": "findPetsByStatus",
@@ -198,11 +177,7 @@
             "schema": {
               "type": "string",
               "default": "available",
-              "enum": [
-                "available",
-                "pending",
-                "sold"
-              ]
+              "enum": ["available", "pending", "sold"]
             }
           }
         ],
@@ -234,22 +209,15 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "petstore_auth": ["write:pets", "read:pets"]
           }
         ]
       }
     },
     "/pet/findByTags": {
       "get": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "pet"
-        ],
+        "roles": ["client"],
+        "tags": ["pet"],
         "summary": "Finds Pets by tags",
         "description": "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
         "operationId": "findPetsByTags",
@@ -296,22 +264,15 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "petstore_auth": ["write:pets", "read:pets"]
           }
         ]
       }
     },
     "/pet/{petId}": {
       "get": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "pet"
-        ],
+        "roles": ["client"],
+        "tags": ["pet"],
         "summary": "Find pet by ID",
         "description": "Returns a single pet",
         "operationId": "getPetById",
@@ -355,20 +316,13 @@
             "api_key": []
           },
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "petstore_auth": ["write:pets", "read:pets"]
           }
         ]
       },
       "post": {
-        "tags": [
-          "pet"
-        ],
-        "roles": [
-          "admin"
-        ],
+        "tags": ["pet"],
+        "roles": ["admin"],
         "summary": "Updates a pet in the store with form data",
         "description": "",
         "operationId": "updatePetWithForm",
@@ -407,20 +361,13 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "petstore_auth": ["write:pets", "read:pets"]
           }
         ]
       },
       "delete": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "pet"
-        ],
+        "roles": ["client"],
+        "tags": ["pet"],
         "summary": "Deletes a pet",
         "description": "",
         "operationId": "deletePet",
@@ -452,22 +399,15 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "petstore_auth": ["write:pets", "read:pets"]
           }
         ]
       }
     },
     "/pet/{petId}/uploadImage": {
       "post": {
-        "tags": [
-          "pet"
-        ],
-        "roles": [
-          "admin"
-        ],
+        "tags": ["pet"],
+        "roles": ["admin"],
         "summary": "uploads an image",
         "description": "",
         "operationId": "uploadFile",
@@ -516,22 +456,15 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "petstore_auth": ["write:pets", "read:pets"]
           }
         ]
       }
     },
     "/store/inventory": {
       "get": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "store"
-        ],
+        "roles": ["client"],
+        "tags": ["store"],
         "summary": "Returns pet inventories by status",
         "description": "Returns a map of status codes to quantities",
         "operationId": "getInventory",
@@ -560,12 +493,8 @@
     },
     "/store/order": {
       "post": {
-        "tags": [
-          "store"
-        ],
-        "roles": [
-          "admin"
-        ],
+        "tags": ["store"],
+        "roles": ["admin"],
         "summary": "Place an order for a pet",
         "description": "Place a new order in the store",
         "operationId": "placeOrder",
@@ -607,12 +536,8 @@
     },
     "/store/order/{orderId}": {
       "get": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "store"
-        ],
+        "roles": ["client"],
+        "tags": ["store"],
         "summary": "Find purchase order by ID",
         "description": "For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions",
         "operationId": "getOrderById",
@@ -653,12 +578,8 @@
         }
       },
       "delete": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "store"
-        ],
+        "roles": ["client"],
+        "tags": ["store"],
         "summary": "Delete purchase order by ID",
         "description": "For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors",
         "operationId": "deleteOrder",
@@ -686,12 +607,8 @@
     },
     "/user": {
       "post": {
-        "tags": [
-          "user"
-        ],
-        "roles": [
-          "admin"
-        ],
+        "tags": ["user"],
+        "roles": ["admin"],
         "summary": "Create user",
         "description": "This can only be done by the logged in user.",
         "operationId": "createUser",
@@ -736,12 +653,8 @@
     },
     "/user/createWithList": {
       "post": {
-        "tags": [
-          "user"
-        ],
-        "roles": [
-          "admin"
-        ],
+        "tags": ["user"],
+        "roles": ["admin"],
         "summary": "Creates list of users with given input array",
         "description": "Creates list of users with given input array",
         "operationId": "createUsersWithListInput",
@@ -781,12 +694,8 @@
     },
     "/user/login": {
       "get": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "user"
-        ],
+        "roles": ["client"],
+        "tags": ["user"],
         "summary": "Logs user into the system",
         "description": "",
         "operationId": "loginUser",
@@ -850,12 +759,8 @@
     },
     "/user/logout": {
       "get": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "user"
-        ],
+        "roles": ["client"],
+        "tags": ["user"],
         "summary": "Logs out current logged in user session",
         "description": "",
         "operationId": "logoutUser",
@@ -869,12 +774,8 @@
     },
     "/user/{username}": {
       "get": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "user"
-        ],
+        "roles": ["client"],
+        "tags": ["user"],
         "summary": "Get user by user name",
         "description": "",
         "operationId": "getUserByName",
@@ -914,12 +815,8 @@
         }
       },
       "put": {
-        "tags": [
-          "user"
-        ],
-        "roles": [
-          "admin"
-        ],
+        "tags": ["user"],
+        "roles": ["admin"],
         "summary": "Update user",
         "description": "This can only be done by the logged in user.",
         "operationId": "updateUser",
@@ -961,12 +858,8 @@
         }
       },
       "delete": {
-        "roles": [
-          "client"
-        ],
-        "tags": [
-          "user"
-        ],
+        "roles": ["client"],
+        "tags": ["user"],
         "summary": "Delete user",
         "description": "This can only be done by the logged in user.",
         "operationId": "deleteUser",
@@ -1020,11 +913,7 @@
             "type": "string",
             "description": "Order Status",
             "example": "approved",
-            "enum": [
-              "placed",
-              "approved",
-              "delivered"
-            ]
+            "enum": ["placed", "approved", "delivered"]
           },
           "complete": {
             "type": "boolean"
@@ -1161,10 +1050,7 @@
         }
       },
       "Pet": {
-        "required": [
-          "name",
-          "photoUrls"
-        ],
+        "required": ["name", "photoUrls"],
         "type": "object",
         "properties": {
           "id": {
@@ -1203,11 +1089,7 @@
           "status": {
             "type": "string",
             "description": "pet status in the store",
-            "enum": [
-              "available",
-              "pending",
-              "sold"
-            ]
+            "enum": ["available", "pending", "sold"]
           }
         },
         "xml": {

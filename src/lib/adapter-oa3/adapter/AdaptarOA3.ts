@@ -1,24 +1,28 @@
-import { OpenAPIV3 } from "openapi-types";
 import { Resolver } from "@stoplight/json-ref-resolver";
-import getObjectSchema from "./getObjectSchema";
-import getObjectExample from "./getObjectExample";
+import { OpenAPIV3 } from "openapi-types";
 import getArrayOfEndpoints from "./getArrayOfEndpoints";
+import getObjectExample from "./getObjectExample";
+import getObjectSchema from "./getObjectSchema";
 
 const resolver = new Resolver();
 
 class AdaptarOA3 {
-  private docSwagger: OpenAPIV3.Document;
-  private docCustom: SectionItem[];
+  protected docSwagger: OpenAPIV3.Document;
+  protected docCustom?: SectionItem[];
   constructor(
     // @ts-ignore
     docSwagger: OpenAPIV3.Document,
-    docCustom: SectionItem[]
+    docCustom?: SectionItem[]
   ) {
     this.docSwagger = docSwagger;
     this.docCustom = docCustom;
   }
 
   async createDocumentation(): Promise<SectionItem[]> {
+    if (!this.docCustom?.length) {
+      throw Error("You need send the docCustom");
+    }
+
     const swaggerDocResolved = await resolver.resolve(this.docSwagger);
     const docMerged: SectionItem[] = [];
     for (let i = 0; i < this.docCustom.length; i++) {
@@ -26,9 +30,8 @@ class AdaptarOA3 {
       const newSectionItemMerged: SectionItem = { ...sectionItem };
       if (sectionItem.is_core_resource) {
         if (sectionItem.schema) {
-          const schemaOfSection = this.docSwagger.components?.schemas?.[
-            sectionItem.schema
-          ];
+          const schemaOfSection =
+            this.docSwagger.components?.schemas?.[sectionItem.schema];
           if (schemaOfSection) {
             const objectSchema = getObjectSchema(
               swaggerDocResolved.result,
@@ -64,4 +67,4 @@ Please add the correct Schema called: ${sectionItem.schema}
   }
 }
 
-export default AdaptarOA3;
+export { AdaptarOA3 };

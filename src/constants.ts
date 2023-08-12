@@ -1,1 +1,2 @@
 export const SECTION_ID = "SECTION_ID";
+export const OPEN_API_DOCUMENT = "OPEN_API_DOCUMENT";
