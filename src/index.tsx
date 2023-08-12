@@ -14,17 +14,17 @@ root.render(
     <React.StrictMode>
       <PrettyRestDoc
         docCustom={APIDoc}
-        // docSwagger={docSwagger as unknown as OpenAPIV3.Document}
-        // roles={[
-        //   {
-        //     label: "Client",
-        //     value: "client",
-        //   },
-        //   {
-        //     label: "Admin",
-        //     value: "admin",
-        //   },
-        // ]}
+        docSwagger={docSwagger as unknown as OpenAPIV3.Document}
+        roles={[
+          {
+            label: "Client",
+            value: "client",
+          },
+          {
+            label: "Admin",
+            value: "admin",
+          },
+        ]}
         fileInput
       />
     </React.StrictMode>

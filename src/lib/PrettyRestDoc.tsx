@@ -6,17 +6,15 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { SECTION_ID } from "../constants";
-import {
-  AdaptarOA3,
-  AdaptarOA3FromFileInput,
-} from "./adapter-oa3/adapter/Adapter";
+import { OPEN_API_DOCUMENT, SECTION_ID } from "../constants";
+import { AdaptarOA3 } from "./adapter-oa3/adapter/AdaptarOA3";
+import { AdaptarOA3FromFileInput } from "./adapter-oa3/adapter/AdaptarOA3FromFileInput";
 import style from "./api.module.scss";
 import Header from "./components/Header";
 import { Navigation } from "./components/Navigation";
 import { SearchModal } from "./components/SearchModal";
 import Section from "./components/Section";
-
+import Spinner from "./components/Spinner";
 interface Props {
   docSwagger?: OpenAPIV3.Document;
   docCustom?: SectionItem[];
@@ -30,41 +28,80 @@ const PrettyRestDoc: FC<Props> = ({
   fileInput,
   roles,
 }) => {
-  const [APIDoc, setAPIDOC] = useState<SectionItem[]>([]);
+  const [APIDoc, setAPIDoc] = useState<SectionItem[]>([]);
   const [section, setSection] = useState<string>("");
   const [searchModal, setSearchModal] = useState<boolean>(false);
-
-  // Initialize the local doc that the repository contains (petstore.json)
-  const initLocalDoc = async () => {
-    if (docSwagger && docCustom) {
-      const adapter = new AdaptarOA3(docSwagger, docCustom);
-      const docMerged = await adapter.createDocumentation();
-      setAPIDOC(docMerged);
-    }
-  };
+  const [initialLoading, setInitialLoading] = useState(true);
 
   const isChromeExtensionMode =
     window.chrome && chrome.runtime && chrome.runtime.id;
 
-  // Persitency of the navigation
-  useLayoutEffect(() => {
-    if (!isChromeExtensionMode) return;
+  // Initialize the local doc that the repository contains (petstore.json)
+  const tryInitLocalDoc = async () => {
+    if (docSwagger && docCustom) {
+      try {
+        const adapter = new AdaptarOA3(docSwagger, docCustom);
+        const docMerged = await adapter.createDocumentation();
+        setAPIDoc(docMerged);
+        setInitialLoading(false);
+      } catch (error) {
+        console.log(`Error in tryInitSavedDoc\n${error}`);
+      }
+    }
+  };
 
-    if (chrome.storage) {
-      chrome.storage.local.get([SECTION_ID]).then((result) => {
-        setTimeout(() => {
-          const anchorElement = document.getElementById(result.SECTION_ID);
-          if (anchorElement) {
-            window.scrollTo(0, anchorElement.offsetTop);
-          }
-          setSection(result.SECTION_ID);
-        }, 1000);
-      });
+  // Initialize the saved doc in chrome extension
+  const tryInitSavedDoc = async () => {
+    try {
+      const result = await chrome.storage.local.get([OPEN_API_DOCUMENT]);
+      if (result.OPEN_API_DOCUMENT) setAPIDoc(result.OPEN_API_DOCUMENT);
+      setInitialLoading(false);
+    } catch (error) {
+      console.log(`Error in tryInitSavedDoc\n${error}`);
+    }
+  };
+
+  useEffect(() => {
+    if (isChromeExtensionMode) {
+      tryInitSavedDoc();
+    } else {
+      tryInitLocalDoc();
     }
   }, []);
 
+  // Persitency of the navigation (Getter)
+  useLayoutEffect(() => {
+    if (!isChromeExtensionMode) return;
+
+    if (!initialLoading && APIDoc.length && chrome.storage) {
+      chrome.storage.local
+        .get([SECTION_ID])
+        .then((result) => {
+          setTimeout(() => {
+            const anchorElement = document.getElementById(result.SECTION_ID);
+            if (anchorElement) {
+              window.scrollTo(0, anchorElement.offsetTop);
+            }
+            setSection(result.SECTION_ID);
+          }, 1000);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [initialLoading]);
+
+  // Persitency of the navigation (Setter)
+  React.useLayoutEffect(() => {
+    if (!isChromeExtensionMode) return;
+
+    if (section && chrome.storage) {
+      chrome.storage.local.set({ [SECTION_ID]: section });
+    }
+  }, [section]);
+
+  // Events to open search modal
   useEffect(() => {
-    initLocalDoc();
     document.title = "Pretty Rest Doc";
 
     const eventsHandlers: any = { keydown: null, keyup: null };
@@ -98,15 +135,6 @@ const PrettyRestDoc: FC<Props> = ({
       document.removeEventListener("keyup", eventsHandlers["keyup"]);
     };
   }, []);
-
-  // Persitency of the navigation
-  React.useEffect(() => {
-    if (!isChromeExtensionMode) return;
-
-    if (chrome.storage) {
-      chrome.storage.local.set({ [SECTION_ID]: section });
-    }
-  }, [section]);
 
   const openSearchModal = () => {
     setSearchModal(true);
@@ -186,6 +214,7 @@ const PrettyRestDoc: FC<Props> = ({
 
   const parseOpenAPIFile = async (file: File) => {
     try {
+      setInitialLoading(true);
       const reader = new FileReader();
       reader.onload = async (event) => {
         try {
@@ -205,10 +234,15 @@ const PrettyRestDoc: FC<Props> = ({
               .join("\n");
             alert(missingAttributesMsg);
           } else {
-            // Call AdaptarOA3 with jsonParsed
             const adapter = new AdaptarOA3FromFileInput(jsonParsed);
-            const docMerged = await adapter.createDocumentation();
-            setAPIDOC(docMerged);
+            const newAPIDoc = await adapter.createDocumentation();
+
+            if (newAPIDoc && isChromeExtensionMode && chrome.storage) {
+              chrome.storage.local.set({ [OPEN_API_DOCUMENT]: newAPIDoc });
+              chrome.storage.local.remove([SECTION_ID]);
+            }
+
+            setAPIDoc(newAPIDoc);
           }
         } catch (error) {
           alert(`Error parsing JSON file.\nError:\n${error}`);
@@ -216,9 +250,15 @@ const PrettyRestDoc: FC<Props> = ({
       };
       reader.readAsText(file);
     } catch (error) {
-      alert("Error reading file.");
+      alert(`Error reading JSON file file.\nError:\n${error}`);
+    } finally {
+      setInitialLoading(false);
     }
   };
+
+  if (initialLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>

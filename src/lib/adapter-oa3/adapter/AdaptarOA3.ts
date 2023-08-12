@@ -1,8 +1,8 @@
-import { OpenAPIV3 } from "openapi-types";
 import { Resolver } from "@stoplight/json-ref-resolver";
-import getObjectSchema from "./getObjectSchema";
-import getObjectExample from "./getObjectExample";
+import { OpenAPIV3 } from "openapi-types";
 import getArrayOfEndpoints from "./getArrayOfEndpoints";
+import getObjectExample from "./getObjectExample";
+import getObjectSchema from "./getObjectSchema";
 
 const resolver = new Resolver();
 
@@ -67,55 +67,4 @@ Please add the correct Schema called: ${sectionItem.schema}
   }
 }
 
-class AdaptarOA3FromFileInput extends AdaptarOA3 {
-  constructor(docSwagger: OpenAPIV3.Document) {
-    super(docSwagger);
-  }
-
-  // Override the createDocumentation method to ignore docCustom
-  async createDocumentation(): Promise<SectionItem[]> {
-    const swaggerDocResolved = await resolver.resolve(this.docSwagger);
-    const docMerged: SectionItem[] = [];
-    // Iterate over the sections defined in the Swagger document
-    for (const sectionItem of swaggerDocResolved.result.paths) {
-      // Start here the fix
-      const newSectionItemMerged: SectionItem = { ...sectionItem };
-
-      if (sectionItem.schema) {
-        const schemaOfSection =
-          this.docSwagger.components?.schemas?.[sectionItem.schema];
-        if (schemaOfSection) {
-          const objectSchema = getObjectSchema(
-            swaggerDocResolved.result,
-            sectionItem.schema
-          );
-          newSectionItemMerged.object_schema = objectSchema;
-          const objectExample = getObjectExample(
-            swaggerDocResolved.result,
-            sectionItem.schema
-          );
-          newSectionItemMerged.object_example = objectExample;
-        } else {
-          console.warn(`
-  The documentation section
-  ${sectionItem.title}
-  Don't have the correct OA3 Schema in components attribute.
-  Please add the correct Schema called: ${sectionItem.schema}
-          `);
-        }
-      }
-      if (sectionItem.tag) {
-        newSectionItemMerged.endpoints = getArrayOfEndpoints(
-          swaggerDocResolved.result.paths,
-          sectionItem.tag,
-          swaggerDocResolved.result
-        );
-      }
-
-      docMerged.push(newSectionItemMerged);
-    }
-    return docMerged;
-  }
-}
-
-export { AdaptarOA3, AdaptarOA3FromFileInput };
+export { AdaptarOA3 };

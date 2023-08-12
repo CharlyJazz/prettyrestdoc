@@ -891,3 +891,35 @@
     }
   }
 }
+
+.SpinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.Spinner {
+  border: 3px solid rgba(0, 0, 0, 0.07);
+  border-top: 3px solid var(--main-color); // Adjust color as needed
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s normal infinite;
+}
+
+@keyframes spin {
+  0% {
+    opacity: 0.1;
+    transform: rotate(0deg);
+  }
+  
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(360deg);
+  }
+}
