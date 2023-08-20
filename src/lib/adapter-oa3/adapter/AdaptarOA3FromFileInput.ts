@@ -1,7 +1,5 @@
 import { OpenAPIV3 } from "openapi-types";
 import { Resolver } from "@stoplight/json-ref-resolver";
-import getObjectSchema from "./getObjectSchema";
-import getObjectExample from "./getObjectExample";
 import getArrayOfEndpoints from "./getArrayOfEndpoints";
 import { capitalizeFirstWord } from "../../../utils/capitalize";
 import { AdaptarOA3 } from "./AdaptarOA3";

@@ -1,12 +1,12 @@
 import { OpenAPIV3 } from "openapi-types";
 import getObjectSchema from "./getObjectSchema";
+import getSchema from "./getSchema";
 
 const getParameters = (
   parameters: OpenAPIV3.ParameterObject[] | undefined,
   method: HTTP_METHOD,
   requestBody: OpenAPIV3.RequestBodyObject | undefined
 ): SchemaParameters => {
-  // console.log(parameters);
   const inHeader: SchemaItem[] = [];
   const inPath: SchemaItem[] = [];
   const inQuery: SchemaItem[] = [];
@@ -14,14 +14,10 @@ const getParameters = (
 
   // https://swagger.io/docs/specification/describing-request-body/
   if (["POST", "PUT", "PATCH"].includes(method) && requestBody) {
-    inBody.push(
-      ...getObjectSchema(
-        (requestBody as OpenAPIV3.RequestBodyObject)?.content?.[
-          "application/json"
-        ]?.schema as OpenAPIV3.BaseSchemaObject,
-        ""
-      )
-    );
+    const schema = getSchema(requestBody as OpenAPIV3.RequestBodyObject);
+    if (schema) {
+      inBody.push(...getObjectSchema(schema, ""));
+    }
   }
 
   if (parameters && Array.isArray(parameters) && parameters?.length) {

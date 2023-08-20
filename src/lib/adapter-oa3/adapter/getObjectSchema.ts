@@ -2,7 +2,10 @@
 import { OpenAPIV3 } from "openapi-types";
 
 const getObjectSchema = (
-  doc: OpenAPIV3.Document | OpenAPIV3.BaseSchemaObject,
+  doc:
+    | OpenAPIV3.Document
+    | OpenAPIV3.BaseSchemaObject
+    | OpenAPIV3.ReferenceObject,
   schemaName: string
 ): SchemaItem[] => {
   const objectSchema: SchemaItem[] = [];
