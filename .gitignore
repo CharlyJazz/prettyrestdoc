@@ -25,3 +25,5 @@ yarn-error.log*
 build.zip
 gh-pages
 gh-pages.pub
+
+filestests/

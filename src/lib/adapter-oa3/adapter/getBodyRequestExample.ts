@@ -1,10 +1,7 @@
 // @ts-nocheck
 
 import { OpenAPIV3 } from "openapi-types";
-
-const getSchema = (requestBodyObject: OpenAPIV3.RequestBodyObject) =>
-  requestBodyObject?.content?.["application/json"]?.schema ||
-  requestBodyObject?.content?.["multipart/form-data"]?.schema;
+import getSchema from "./getSchema";
 
 /* 
  Get Object From 'bodyRequest' attribute
@@ -13,7 +10,7 @@ const getBodyRequestExample: RawExample = (
   requestBodyObject: OpenAPIV3.RequestBodyObject
 ): RawExample => {
   const bodyRequest: RawExample = {};
-  const schema = getSchema(requestBodyObject) as OpenAPIV3.SchemaObject;
+  const schema = getSchema(requestBodyObject);
   if (schema) {
     const entries = Object.entries(
       schema.properties || schema?.items?.properties || {}
@@ -23,6 +20,10 @@ const getBodyRequestExample: RawExample = (
       value = value as OpenAPIV3.NonArraySchemaObject;
       if (value.example) {
         bodyRequest[key] = value.example;
+      } else if (value.type === "string") {
+        bodyRequest[key] = `A string`;
+      } else if (value.type === "integer") {
+        bodyRequest[key] = 0;
       } else if (value.type === "array" && value.items && value.items.example) {
         bodyRequest[key] = [value.items.example];
       } else if (value.type === "object" && value.properties) {

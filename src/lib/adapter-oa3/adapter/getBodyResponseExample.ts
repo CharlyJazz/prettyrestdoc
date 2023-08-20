@@ -9,6 +9,10 @@ const getBodyResponseExample: BodyResponse[] = (
   const bodyResponse: BodyResponse[] = [];
   Object.entries(responsesObject).forEach(
     ([status_http, { content, description }]) => {
+      if (description === "An unexpected error response.") {
+        const forTest = getBodyRequestExample({ content }, doc);
+        console.log(forTest);
+      }
       bodyResponse.push({
         status_http,
         description,
