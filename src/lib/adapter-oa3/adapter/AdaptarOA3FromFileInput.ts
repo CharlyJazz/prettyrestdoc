@@ -1,8 +1,9 @@
-import { OpenAPIV3 } from "openapi-types";
 import { Resolver } from "@stoplight/json-ref-resolver";
-import getArrayOfEndpoints from "./getArrayOfEndpoints";
+import { OpenAPIV3 } from "openapi-types";
 import { capitalizeFirstWord } from "../../../utils/capitalize";
 import { AdaptarOA3 } from "./AdaptarOA3";
+import discoveryTagsFromPaths from "./discoveryTagsFromPaths";
+import getArrayOfEndpoints from "./getArrayOfEndpoints";
 
 const resolver = new Resolver();
 
@@ -17,8 +18,11 @@ class AdaptarOA3FromFileInput extends AdaptarOA3 {
     const swaggerDocResolvedResult =
       swaggerDocResolved.result as OpenAPIV3.Document;
     const docMerged: SectionItem[] = [];
+    const tags =
+      swaggerDocResolvedResult.tags ||
+      discoveryTagsFromPaths(swaggerDocResolvedResult);
 
-    for (const tag of swaggerDocResolvedResult.tags || []) {
+    for (const tag of tags) {
       if (!tag.name) {
         console.warn(
           `There is a tag without name and we can not create the documentation without it`
