@@ -37,7 +37,6 @@ class AdaptarOA3 {
               swaggerDocResolved.result,
               sectionItem.schema
             );
-            // console.log(sectionItem.title, objectSchema);
             newSectionItemMerged.object_schema = objectSchema;
             const objectExample = getObjectExample(
               swaggerDocResolved.result,
