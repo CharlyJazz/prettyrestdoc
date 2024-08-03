@@ -33,7 +33,7 @@ export const SearchModal: FC<{
   const [value, setValue] = useState<string>("");
   const navigateToUrl = (url: string) => {
     closeModal();
-    window.location.hash = url;
+    window.location.pathname = `/${url.replace(/\s+/g, '-')}`;;
     const elmnt = document.getElementById(url);
     elmnt?.scrollIntoView(true);
   };

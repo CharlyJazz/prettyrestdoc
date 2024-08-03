@@ -73,6 +73,15 @@ const PrettyRestDoc: FC<Props> = ({
     }
   }, []);
 
+  useEffect(() => {
+    if (section) {
+      const anchorElement = document.getElementById(section);
+      if (anchorElement && window.location.pathname !== `/${section.replace(/\s+/g, '-')}`) {
+        window.location.pathname = `/${section.replace(/\s+/g, '-')}`;
+      }
+    }
+  }, [section]);
+
   // Persitency of the navigation (Getter)
   useLayoutEffect(() => {
     if (!isChromeExtensionMode) return;

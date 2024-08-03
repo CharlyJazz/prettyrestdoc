@@ -1,7 +1,6 @@
 import GettingStarted from "./getting_started";
 import Authentication from "./authentication";
 import PaginationAndLimits from "./pagination_limits";
-import RolesPermissions from "./roles_permissions";
 // Core Resources
 import ShiftCosts from "./shift_costs";
 import Budgets from "./budgets";
@@ -18,7 +17,6 @@ const APIDoc: SectionItem[] = [
   GettingStarted,
   Authentication,
   PaginationAndLimits,
-  RolesPermissions,
   ShiftCosts,
   Budgets,
   Contracts,

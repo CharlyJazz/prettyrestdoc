@@ -4,7 +4,7 @@ const documentation: SectionItem = {
     schema: "ShiftSegmentCost",
     title: "Lieu Time",
     content: {
-      left_section_title: "lieu_time",
+      left_section_title: "Lieu Time",
       left_section_paragraphs: ["Lieu Time description."],
       right_box_snippet_white: true,
       right_box_snippet_title: "Example of a Lieu Time object",

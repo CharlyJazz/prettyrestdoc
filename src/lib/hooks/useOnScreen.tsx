@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, RefObject } from "react";
 
-function useOnScreen(ref: any) {
+function useOnScreen(ref: RefObject<any>) {
   const [isIntersecting, setIntersecting] = useState(false);
 
   const observer = new IntersectionObserver(
-    ([entry]) => setIntersecting(entry.isIntersecting),
+    ([entry]) => {
+      setIntersecting(entry.isIntersecting);
+    },
     {
-      // Some views need differents threshold
-      threshold: 0,
+      root: ref.current,
+      threshold: [0, 0.5, 1],
+      rootMargin: "0px",
     }
   );
 

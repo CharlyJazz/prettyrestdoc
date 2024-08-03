@@ -1,4 +1,4 @@
-# PrettyRestDoc
+# WorksShop API Render
 
 [Check it out the demo!](https://charlyjazz.github.io/prettyrestdoc/#User)
 
@@ -118,3 +118,13 @@ npm install && npm run test
 
 - [Swagger](https://swagger.io/)
 - [OpenAPI](https://www.openapis.org/)
+
+### Custom Features:
+
+- Should look like the Mailchimp API developers area.
+- Should be Branded with ShopWorks logo.
+- Should have some pages of introduction text, as displayed in the supplied PDF.
+- Should have a section on Authentication
+- Should have all the details of the endpoints ,and the data that is accepted into the endpoints.
+- Should auto- update the technical part of the docs when we replace a new open API YAML file into the folder.
+- Should allow us to easily edit the pages so that we can add more endpoints and APIs to it 

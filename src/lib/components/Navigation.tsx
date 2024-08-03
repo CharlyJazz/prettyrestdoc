@@ -1,5 +1,5 @@
 import style from "../api.module.scss";
-import React, { FC } from "react";
+import { FC, useEffect,  useState} from "react";
 
 export const Navigation: FC<{
   section: string;
@@ -7,15 +7,32 @@ export const Navigation: FC<{
   APIDoc: SectionItem[];
   docCustomOriginal: SectionItem[]
 }> = ({ section, openSearchModal, APIDoc, docCustomOriginal }) => {
+  const [showLogo, setShowLogo] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 60) {
+        setShowLogo(true);
+      } else {
+        setShowLogo(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const indexFirstCore = docCustomOriginal.findIndex((value) => {
     return value.is_core_resource;
   });
+
   return (
     <div className={style.Navigation}>
-      <h1 className={style.Title}>
-        <span>Pretty Rest Doc</span>
-      </h1>
       <div
+        style={{ display: "none" }}
         className={style.Search}
         tabIndex={1}
         onKeyDown={openSearchModal}
@@ -37,6 +54,11 @@ export const Navigation: FC<{
         </button>
         <input type="text" placeholder="Search for ..." disabled />
       </div>
+      <div
+        className={style.LogoNavigation}
+        style={{ display: showLogo ? "block" : "none" }}>
+        <img src={`${process.env.PUBLIC_URL}/logo.webp`}></img>
+      </div>
       <div className={style.Links}>
         {APIDoc.map((n, i) => {
           return (
@@ -48,7 +70,6 @@ export const Navigation: FC<{
                 className={
                   section === n.title ? style.NavigationItemActive : ""
                 }
-                href={`#${n.title}`}
               >
                 {n.title}
               </a>
@@ -61,7 +82,6 @@ export const Navigation: FC<{
                       className={
                         section === n.title ? style.NavigationItemActive : ""
                       }
-                      href={`#${n.title}`}
                     >
                       - {n.title}
                     </a>
