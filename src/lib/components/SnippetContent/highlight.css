@@ -4,15 +4,16 @@
   --hljs-number-color: #5c862c;
   --hljs-string-color: #3c670b;
   --hljs-literal-color: #92c557;
+  --font-size-for-snippet: 11px;
 }
 
 .json.hljs {
   font-family: Roboto;
   color: var(--hljs-symbols);
   font-size: var(--snippet-font-size);
-  font-weight: 500;
+  font-weight: 400;
   direction: ltr;
-  font-size: 13px;
+  font-size: var(--font-size-for-snippet);
   -webkit-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;

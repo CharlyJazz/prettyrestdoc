@@ -20,7 +20,8 @@ const EndpointList: FC<{
   method?: HTTP_METHOD;
   url?: string;
   title?: string;
-}> = ({ endpoints, url, method, title }) => {
+  description?: string;
+}> = ({ endpoints, url, method, title, description }) => {
   const listMode = endpoints && endpoints.length;
   return (
     <div className={style.EndpointList}>
@@ -36,6 +37,7 @@ const EndpointList: FC<{
           <EndpointItem {...{ url, method }} />
         )}
       </div>
+      <p className={style.EndpointDescription}>{description}</p>
     </div>
   );
 };

@@ -24,7 +24,13 @@
   --width-client-column: 15%;
   --width-admin-column: 15%;
   --body-background-color: #0e1429;
-  --background-color-2: #212c52
+  --background-color-2: #212c52;
+  --endpoint-description-font-size: 11px;
+}
+
+
+div {
+  border-radius: 4px;
 }
 
 body {
@@ -245,11 +251,11 @@ body {
 
         >div {
           &:nth-child(2) {
-            margin-top: 30px;
+            margin-top: .5rem;
           }
 
           @media (max-width: 1180px) {
-            margin-top: 30px;
+            margin-top: .5rem;
           }
         }
 
@@ -284,13 +290,13 @@ body {
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    font-size: var(--section-main-description-font-size);
+    font-size: 10px;
     line-height: 105.4%;
 
     &:nth-child(1) {
       background-color: #18323b;
       border-radius: 4px;
-      margin-bottom: 2rem;
+      margin-bottom: .5rem;
       color: var(--gradient-fallback);
       padding: 10px;
       background: var(--snippet-content-background-color);
@@ -349,12 +355,13 @@ body {
   transition: 0.4s;
 
   &:hover {
-    background-color: #404d7d;
+    background-color: #28335e;
   }
 
   &.ButtonCollapseOpen {
     margin-bottom: 10px;
-
+    background-color: #404d7d;
+    border-radius: 4px;
   }
 }
 
@@ -432,10 +439,11 @@ body {
 }
 
 .EndpointList {
-  padding: 1.4rem 0 1.1rem 0;
+  padding: .6rem;
+  margin-left: 4px;
 
   > div {
-    padding-bottom: 15px;
+    padding-top: 10px;
 
     &:nth-child(1) {
       height: 23px;
@@ -995,8 +1003,27 @@ body {
   border: 1px solid #6ea62e4a;
   padding: 10px;
   border-radius: 4px;
+  animation: fadeIn .6s;
 }
 
 .LeftClose {
   transition: 1s;
+}
+
+.EndpointDescription {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: var(--endpoint-description-font-size);
+  line-height: 105.4%;
+  color: var(--text-color);
+}
+
+.CollapseArrow {
+  text-align: right;
+  color: rgba(255, 255, 255, 0.506);
+  float: right;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  font-size: 7px;
 }

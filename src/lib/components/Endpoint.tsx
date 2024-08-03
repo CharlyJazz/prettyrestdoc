@@ -24,12 +24,12 @@ export const Endpoint: FC<EndpointItem> = ({
           style.ButtonCollapse, 
           open ? style.ButtonCollapseOpen : ''
         ].join(" ")}>
-          <EndpointList {...{ method, url, title }} />
+          <EndpointList {...{ method, url, title, description }} />
+          <span className={style.CollapseArrow}>Click for {open ? "Collapse ↑" : "↓ Expand"}</span>
         </button>
       </>
       <Collapse isOpened={open}>
         <div className={style.Flex}>
-
           {/* <------ LEFT ZONE */}
           <div className={[
             style.Left,
@@ -38,22 +38,22 @@ export const Endpoint: FC<EndpointItem> = ({
           ].join(" ")}>
             <CollapsablesItems
               data={parameters.inBody || []}
-              title="In Body"
+              title="In Body Parameters"
               show_datatype={false}
             />
             <CollapsablesItems
               data={parameters.inPath || []}
-              title="In Path"
+              title="In Path Parameters"
               show_datatype={false}
             />
             <CollapsablesItems
               data={parameters?.inHeader || []}
-              title="In Header"
+              title="In Header Parameters"
               show_datatype={false}
             />
             <CollapsablesItems
               data={parameters?.inQuery || []}
-              title="In Query"
+              title="In Query Parameters"
               show_datatype={false}
             />
           </div>
