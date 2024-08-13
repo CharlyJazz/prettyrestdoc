@@ -115,7 +115,7 @@ const PrettyRestDoc: FC<Props> = ({
 
   // Events to open search modal
   useEffect(() => {
-    document.title = "Pretty Rest Doc";
+    document.title = "ShopWorks - API";
 
     const eventsHandlers: any = { keydown: null, keyup: null };
     let ctrl = false;
@@ -250,6 +250,7 @@ const PrettyRestDoc: FC<Props> = ({
           openSearchModal={openSearchModal}
           APIDoc={APIDoc}
           docCustomOriginal={docCustom || []}
+          setSection={setSection}
         />
         <div className={style.Content}>{itemarray}</div>
       </div>

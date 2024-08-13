@@ -7,7 +7,7 @@
   --section-title-font-size: 1.9rem;
   --section-main-description-font-size: 13px;
   --input_bg_color: white;
-  --input_height: 36px;
+  --input_height: 20px;
   --border_color: rgba(90, 90, 90, 0.467);
   --sidebar_width: 280px;
   --collapse_item_space_between: 10px;
@@ -117,14 +117,17 @@ body {
 
   .Search {
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
 
     button {
       border: none;
       background: none;
       position: absolute;
       height: 100%;
-      width: 50px;
+      width: 20px;
+      margin-left: 5px;
+      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -138,17 +141,18 @@ body {
       border: 1px solid transparent;
       outline: none;
       border-radius: 100px;
-      width: 100%;
-      padding-left: 50px;
-      padding-right: 30px;
+      width: 77%;
+      padding-left: 25px;
       transition: border 0.2s;
+      font-size: 10px;
+      font-weight: 500;
+      font-family: Roboto;
+      padding-right: 0;
+      pointer-events: none;
+      cursor: pointer;
 
-      &:hover {
-        border: 1px solid rgb(221, 221, 221);
-
-        &::placeholder {
-          color: rgb(71, 71, 71);
-        }
+      &::placeholder {
+        color: black;
       }
     }
   }
