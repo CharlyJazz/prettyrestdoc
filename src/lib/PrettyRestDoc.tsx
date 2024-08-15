@@ -244,6 +244,7 @@ const PrettyRestDoc: FC<Props> = ({
           open={searchModal}
           closeModal={closeSearchModal}
           APIDoc={APIDoc}
+          setSection={setSection}
         />
         <Navigation
           section={section}

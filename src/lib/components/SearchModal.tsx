@@ -15,7 +15,8 @@ export const SearchModal: FC<{
   open: boolean;
   closeModal(): void;
   APIDoc: SectionItem[];
-}> = ({ open, closeModal, APIDoc }) => {
+  setSection(title: string): void;
+}> = ({ open, closeModal, APIDoc, setSection }) => {
   const initialValues = React.useMemo(() => {
     const newResults: Results[] = [];
     for (let I = 0; I < APIDoc.length; I++) {
@@ -31,12 +32,16 @@ export const SearchModal: FC<{
   const refInput = useRef<HTMLInputElement>(null);
   const [results, setResults] = useState<Results[]>(initialValues);
   const [value, setValue] = useState<string>("");
-  const navigateToUrl = (url: string) => {
+  const navigateToUrl = (title: string) => {
     closeModal();
-    window.location.pathname = `/${url.replace(/\s+/g, '-')}`;;
-    const elmnt = document.getElementById(url);
-    elmnt?.scrollIntoView(true);
-  };
+    const element = document.querySelector(`[data-uri="${title}"]`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+        setSection(title);
+      }, 1000);
+    }
+  }
   useEffect(() => {
     if (open) {
       refInput.current?.focus();
@@ -55,17 +60,16 @@ export const SearchModal: FC<{
             id: ID(),
           });
         }
-        if (element.items) {
-          for (let j = 0; j < element.items.length; j++) {
-            const sub_element = element.items[j];
-            if (sub_element.title.toLowerCase().includes(value.toLowerCase())) {
+        if (element.content) {
+          element.content.left_section_paragraphs.forEach((paragraph) => {
+            if (paragraph.toLowerCase().includes(value.toLowerCase())) {
               newResults.push({
-                name: sub_element.title,
-                url: sub_element.title,
+                name: paragraph,
+                url: element.title,
                 id: ID(),
               });
             }
-          }
+          });
         }
       }
       setResults(newResults);
