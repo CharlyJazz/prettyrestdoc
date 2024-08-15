@@ -15,6 +15,7 @@ import { Navigation } from "./components/Navigation";
 import { SearchModal } from "./components/SearchModal";
 import Section from "./components/Section";
 import Spinner from "./components/Spinner";
+import BurgerMenu from "./components/BurgerMenu";
 import {
   getMissingAttributes,
   validationReasons,
@@ -36,6 +37,7 @@ const PrettyRestDoc: FC<Props> = ({
   const [section, setSection] = useState<string>("");
   const [searchModal, setSearchModal] = useState<boolean>(false);
   const [initialLoading, setInitialLoading] = useState(true);
+  const [showNavigationstate, setShowNavigationstate] = useState(false);
 
   const isChromeExtensionMode =
     window.chrome && chrome.runtime && chrome.runtime.id;
@@ -151,6 +153,7 @@ const PrettyRestDoc: FC<Props> = ({
 
   const openSearchModal = () => {
     setSearchModal(true);
+    setShowNavigationstate(false);
   };
 
   const closeSearchModal = () => {
@@ -239,6 +242,12 @@ const PrettyRestDoc: FC<Props> = ({
         fileInput={Boolean(fileInput)}
         onFileUpload={(file) => parseOpenAPIFile(file)}
       />
+      <BurgerMenu 
+        open={showNavigationstate}
+        onClick={() => {
+          setShowNavigationstate(!showNavigationstate)
+        }}
+      />
       <div className={style.Wrapper}>
         <SearchModal
           open={searchModal}
@@ -252,6 +261,7 @@ const PrettyRestDoc: FC<Props> = ({
           APIDoc={APIDoc}
           docCustomOriginal={docCustom || []}
           setSection={setSection}
+          showNavigation={showNavigationstate}
         />
         <div className={style.Content}>{itemarray}</div>
       </div>

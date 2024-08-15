@@ -7,7 +7,8 @@ export const Navigation: FC<{
   APIDoc: SectionItem[];
   docCustomOriginal: SectionItem[];
   setSection(title: string): void;
-}> = ({ section, openSearchModal, APIDoc, docCustomOriginal, setSection }) => {
+  showNavigation: boolean;
+}> = ({ section, openSearchModal, APIDoc, docCustomOriginal, setSection, showNavigation }) => {
   const [showLogo, setShowLogo] = useState(false);
 
   useEffect(() => {
@@ -41,8 +42,13 @@ export const Navigation: FC<{
     }
   }
 
+  const classes = [
+    style.Navigation,
+    showNavigation ? style.NavigationShow : style.NavigationHide,
+  ]
+
   return (
-    <nav className={style.Navigation} aria-label="Main Navigation">
+    <nav className={classes.join(" ")} aria-label="Main Navigation">
       <div
         className={style.Search}
         tabIndex={0}
@@ -74,7 +80,7 @@ export const Navigation: FC<{
       </div>
       <div
         className={style.LogoNavigation}
-        style={{ display: showLogo ? "block" : "none" }}
+        style={!showNavigation ? { display: showLogo ? "block" : "none" } : {display: "block"}}
         aria-hidden={!showLogo}
       >
         <img src={`${process.env.PUBLIC_URL}/logo.webp`} alt="Company Logo" />

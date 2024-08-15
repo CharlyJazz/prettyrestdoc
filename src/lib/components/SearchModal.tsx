@@ -188,14 +188,8 @@ export const SearchModal: FC<{
                 <span
                   style={{
                     ...resultTypeLabelStyles[n.type_result],
-                    padding: "2px 5px",
-                    borderRadius: "3px",
-                    fontSize: "9px",
-                    fontFamily: "Roboto, sans-serif",
-                    marginRight: "8px",
-                    minWidth: "30px",
-                    display: "inline-block",
                   }}
+                  className={style.ResultTypeLabel}
                 >
                   {n.type_result}
                 </span>

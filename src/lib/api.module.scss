@@ -28,6 +28,16 @@
   --endpoint-description-font-size: 11px;
 }
 
+.LogoNavigation {
+  img {
+    width: 100px;
+    margin: 0 auto;
+    animation: fadeIn 1s;
+    position: absolute;
+    top: -10px;
+  }
+}
+
 
 div {
   border-radius: 4px;
@@ -111,9 +121,10 @@ body {
     width: calc(var(--sidebar_width) - 80px);
   }
 
-  @media (max-width: 1180px) {
+  @media (max-width: 780px) {
     display: none;
   }
+
 
   .Search {
     position: relative;
@@ -177,6 +188,44 @@ body {
       }
     }
   }
+
+  &.NavigationShow {
+    z-index: 1;
+    display: block;
+    width: 75%;
+    background-color: var(--background-color-2);
+    top: 0;
+    padding-top: 100px;
+
+    // Change font sizes
+
+    .Links {
+      div {
+        a {
+          font-size: 1.3rem;
+        }
+      }
+
+      .NavigationCoreWord {
+        font-size: 1.1rem;
+      }
+    }
+
+    .Search {
+      input {
+        font-size: 1.3rem;
+        height: 40px;
+      }
+      margin-bottom: 20px;
+    }
+
+    .LogoNavigation {
+      img {
+        width: 150px;
+        top: 30px;
+      }
+    }
+  }
 }
 
 .Content {
@@ -192,7 +241,7 @@ body {
     margin-left: calc(var(--sidebar_width) - 80px);
   }
 
-  @media (max-width: 1180px) {
+  @media (max-width: 780px) {
     margin-left: 0;
   }
 
@@ -522,7 +571,7 @@ body {
 }
 
 .SearchModalBackground {
-  background-color: rgba(82, 95, 127, 0.25);
+  background-color: rgb(0 0 0 / 65%);
   bottom: 0;
   left: 0;
   overflow-y: auto;
@@ -661,7 +710,6 @@ body {
   }
 
   .HeaderButtonSearch {
-    margin-right: 10px;
     border: none;
     background-color: transparent;
     padding: 7px;
@@ -993,15 +1041,7 @@ body {
   }
 }
 
-.LogoNavigation {
-  img {
-    width: 100px;
-    margin: 0 auto;
-    animation: fadeIn 1s;
-    position: absolute;
-    top: -10px;
-  }
-}
+
 
 .LeftOpen {
   border: 1px solid #6ea62e4a;
@@ -1030,4 +1070,57 @@ body {
   margin-bottom: 5px;
   margin-right: 5px;
   font-size: 7px;
+}
+
+
+.ResultTypeLabel {
+  padding: 0px 2px 3px;
+  border-radius: 3px;
+  font-size: 7px;
+  font-family: Roboto, sans-serif;
+  margin-right: 8px;
+  min-width: 30px;
+  display: inline-block;
+  position: relative;
+  top: -1px;
+  text-align: center;
+  line-height: 14px;
+  height: 10px;
+}
+
+.Burger {
+  position: fixed;
+  top: 48px;
+  right: 24px;
+  width: 35px;
+  height: 30px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 9;
+  
+  @media (max-width: 768px) {
+    display: flex;
+  }
+
+  div {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    border-radius: 2px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  &.open div:nth-child(1) {
+    transform: rotate(45deg) translateY(20px);
+  }
+
+  &.open div:nth-child(2) {
+    opacity: 0;
+  }
+
+  &.open div:nth-child(3) {
+    transform: rotate(-45deg) translateY(-20px);
+  }
 }
