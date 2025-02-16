@@ -24,12 +24,11 @@ const Header: FC<HeaderProps> = ({
       alert(`Error handling file: ${error}`);
     }
   };
-
   return (
     <div className={style.Header}>
       <div className={style.HeaderFirstDiv}>
         <h1 className={style.Title}>
-          <span>API</span>
+          <img src={`${process.env.PUBLIC_URL}/logo.webp`} className={style.Logo}></img>
         </h1>
       </div>
       {fileInput ? (

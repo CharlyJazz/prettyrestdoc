@@ -15,6 +15,7 @@ import { Navigation } from "./components/Navigation";
 import { SearchModal } from "./components/SearchModal";
 import Section from "./components/Section";
 import Spinner from "./components/Spinner";
+import BurgerMenu from "./components/BurgerMenu";
 import {
   getMissingAttributes,
   validationReasons,
@@ -36,6 +37,7 @@ const PrettyRestDoc: FC<Props> = ({
   const [section, setSection] = useState<string>("");
   const [searchModal, setSearchModal] = useState<boolean>(false);
   const [initialLoading, setInitialLoading] = useState(true);
+  const [showNavigationstate, setShowNavigationstate] = useState(false);
 
   const isChromeExtensionMode =
     window.chrome && chrome.runtime && chrome.runtime.id;
@@ -73,6 +75,15 @@ const PrettyRestDoc: FC<Props> = ({
     }
   }, []);
 
+  useEffect(() => {
+    if (section) {
+      const anchorElement = document.getElementById(section);
+      if (anchorElement && window.location.pathname !== `/${section.replace(/\s+/g, '-')}`) {
+        window.location.pathname = `/${section.replace(/\s+/g, '-')}`;
+      }
+    }
+  }, [section]);
+
   // Persitency of the navigation (Getter)
   useLayoutEffect(() => {
     if (!isChromeExtensionMode) return;
@@ -106,7 +117,7 @@ const PrettyRestDoc: FC<Props> = ({
 
   // Events to open search modal
   useEffect(() => {
-    document.title = "Pretty Rest Doc";
+    document.title = "ShopWorks - API";
 
     const eventsHandlers: any = { keydown: null, keyup: null };
     let ctrl = false;
@@ -142,6 +153,7 @@ const PrettyRestDoc: FC<Props> = ({
 
   const openSearchModal = () => {
     setSearchModal(true);
+    setShowNavigationstate(false);
   };
 
   const closeSearchModal = () => {
@@ -230,17 +242,26 @@ const PrettyRestDoc: FC<Props> = ({
         fileInput={Boolean(fileInput)}
         onFileUpload={(file) => parseOpenAPIFile(file)}
       />
+      <BurgerMenu 
+        open={showNavigationstate}
+        onClick={() => {
+          setShowNavigationstate(!showNavigationstate)
+        }}
+      />
       <div className={style.Wrapper}>
         <SearchModal
           open={searchModal}
           closeModal={closeSearchModal}
           APIDoc={APIDoc}
+          setSection={setSection}
         />
         <Navigation
           section={section}
           openSearchModal={openSearchModal}
           APIDoc={APIDoc}
           docCustomOriginal={docCustom || []}
+          setSection={setSection}
+          showNavigation={showNavigationstate}
         />
         <div className={style.Content}>{itemarray}</div>
       </div>

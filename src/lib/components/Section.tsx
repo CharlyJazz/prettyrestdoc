@@ -31,6 +31,7 @@ const Section: FC<SectionProps> = ({
   let informativeRightSnippet = null;
   let theObjectSection = null;
   let paragraphsDescription = null;
+  let images = null;
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -80,44 +81,22 @@ const Section: FC<SectionProps> = ({
   if (endpoints && endpoints.length) {
     endpointsTags = <EndpointList endpoints={endpoints} />;
   }
+  if (content?.images) {
+    images = content.images.map((n, i) => {
+      return <img key={i} src={n} alt={title} className={style.SectionImage} />;
+    });
+  }
 
   return (
     <>
-      <div ref={ref} id={title}>
+      <div ref={ref} data-uri={title}>
         <div>
           <h2>{text(content?.left_section_title || "")}</h2>
         </div>
         <div className={style.Flex}>
-          {/* <------ LEFT ZONE */}
           <div className={style.Left}>
             {paragraphsDescription}
-            {theObjectSection}
-            {title === "Pagination & Limits" ? (
-              <>
-                <CollapsablesItems
-                  data={content?.parameters || []}
-                  title="Parameters"
-                  show_datatype={false}
-                />
-                <CollapsablesItems
-                  data={content?.returns || []}
-                  title="Returns"
-                  show_datatype={false}
-                />
-              </>
-            ) : (
-              <CollapsablesItems
-                data={object_schema || []}
-                title="Attributes"
-                show_datatype={true}
-              />
-            )}
-          </div>
-          {/* RIGHT ZONE ------> */}
-          <div className={style.Right}>
-            {endpointsTags}
-            {informativeRightBox}
-            {informativeRightSnippet}
+            {images}
           </div>
         </div>
         {endpoints && endpoints?.length ? (

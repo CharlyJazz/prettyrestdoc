@@ -4,47 +4,40 @@ const documentation: SectionItem = {
   content: {
     left_section_title: "Pagination",
     left_section_paragraphs: [
-      "PetStore API utilizes cursor-based pagination via the [starting_after] parameter. The [starting_after] parameter takes an existing [last_element] attribute value and returns the next batch of objects.",
+      "Our API response and request supports several common query parameters to handle paging through the response data.",
+      "The default number or records returned per page is set to 15.",
+      "In order to extend this, you may pass in a 'per_page' parameter with the request query, such as 'per_page=100'",
+      "Pagination link data is contained within the 'links' property of every response.",
+      "To move to the previous or next page of data, you should reference the response from the current call, which will contain a cursor pointer link (where one is available) within the 'links.prev' and 'links.next' properties.",
+      "The pagination data response properties 'links.prev' and 'links.next' will contain all the request parameters needed to make the next call. When making the next call to the API, do not attempt to modify any of the data within the response, as this may result in missing records",
+      "NOTE: Due to a change to the pagination method used in the V2 endpoints, V2 only uses the 'links.prev' and 'links.next' properties. It is not possible to specify a page number and jump directly to that page - You may only use 'prev' and 'next' links to cycle through the pages."
     ],
     parameters: [
       {
-        name: "limit",
+        name: "per_page",
         description:
-          "A limit on the number of objects to be returned. The limit can range between 1 and 1000, and the default is 10.",
-      },
-      {
-        name: "starting_after",
-        description:
-          "A cursor for use in pagination. [starting_after] is a generated ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, including [last_element] in the data root, your subsequent call can include [starting_after]=[last_element] in order to fetch the next page of the list.",
+          "A limit on the number of objects to be returned.",
       },
     ],
     returns: [
       {
-        name: "has_more",
-        description: "Indicates whether there are more items in the database",
-      },
-      {
-        name: "data",
-        description: "A list of individual objects",
-      },
-      {
-        name: "last_element",
+        name: "links.prev",
         description:
-          "Provide this value in the starting_after parameter to get the next list of resources",
+          "A link to the previous page of objects.",
+      },
+      {
+        name: "links.next",
+        description:
+          "A link to the next page of objects.",
       },
     ],
     right_box_snippet_title: "RESPONSE",
     right_box_snippet_content: {
-      object: "list",
-      url: "/pets",
-      has_more: true,
-      data: [
-        {
-          name: "Poppy",
-          photo: "photo.com",
-        },
-      ],
-      last_element: "2S87A62H",
+      data: [],
+      links: {
+        prev: "https://api.example.com/v1/endpoint?per_page=15&cursor=12345",
+        next: "https://api.example.com/v1/endpoint?per_page=15&cursor=67890",
+      }
     },
     right_box_snippet_white: true,
   },

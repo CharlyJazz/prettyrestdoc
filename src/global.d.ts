@@ -54,6 +54,7 @@ interface Content {
   right_box_snippet_title?: string;
   right_box_snippet_content?: string | RawExample;
   right_box_snippet_white?: boolean;
+  images?: string[];
 }
 
 interface SectionItem {

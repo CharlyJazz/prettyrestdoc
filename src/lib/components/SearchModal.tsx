@@ -5,17 +5,35 @@ interface Results {
   name: string;
   url: string;
   id: string;
+  type_result: ResultType;
 }
 
-var ID = () => {
+enum ResultType {
+  Title = "Title",
+  Description = "Description",
+  UrlEndpoint = "UrlEndpoint",
+  TitleEndpoint = "TitleEndpoint",
+  DescriptionEndpoint = "DescriptionEndpoint"
+}
+
+const ID = () => {
   return "_" + Math.random().toString(36).substr(2, 9);
+};
+
+const resultTypeLabelStyles: { [key in ResultType]: { backgroundColor: string; color: string } } = {
+  [ResultType.Title]: { backgroundColor: "#FFCCCB", color: "#000" }, // Pastel red
+  [ResultType.Description]: { backgroundColor: "#FFDAB9", color: "#000" }, // Pastel peach
+  [ResultType.UrlEndpoint]: { backgroundColor: "#E0FFFF", color: "#000" }, // Pastel cyan
+  [ResultType.TitleEndpoint]: { backgroundColor: "#B0E57C", color: "#000" }, // Pastel green
+  [ResultType.DescriptionEndpoint]: { backgroundColor: "#FFB6C1", color: "#000" } // Pastel pink
 };
 
 export const SearchModal: FC<{
   open: boolean;
   closeModal(): void;
   APIDoc: SectionItem[];
-}> = ({ open, closeModal, APIDoc }) => {
+  setSection(title: string): void;
+}> = ({ open, closeModal, APIDoc, setSection }) => {
   const initialValues = React.useMemo(() => {
     const newResults: Results[] = [];
     for (let I = 0; I < APIDoc.length; I++) {
@@ -24,25 +42,34 @@ export const SearchModal: FC<{
         name: element.title,
         url: element.title,
         id: ID(),
+        type_result: ResultType.Title,
       });
     }
     return newResults;
   }, [APIDoc]);
+
   const refInput = useRef<HTMLInputElement>(null);
   const [results, setResults] = useState<Results[]>(initialValues);
   const [value, setValue] = useState<string>("");
-  const navigateToUrl = (url: string) => {
+
+  const navigateToUrl = (title: string) => {
     closeModal();
-    window.location.hash = url;
-    const elmnt = document.getElementById(url);
-    elmnt?.scrollIntoView(true);
+    const element = document.querySelector(`[data-uri="${title}"]`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+        setSection(title);
+      }, 1000);
+    }
   };
+
   useEffect(() => {
     if (open) {
       refInput.current?.focus();
       setResults(initialValues);
     }
   }, [open]);
+
   useEffect(() => {
     if (value.length && value.trim().length) {
       const newResults: Results[] = [];
@@ -53,19 +80,46 @@ export const SearchModal: FC<{
             name: element.title,
             url: element.title,
             id: ID(),
+            type_result: ResultType.Title,
           });
         }
-        if (element.items) {
-          for (let j = 0; j < element.items.length; j++) {
-            const sub_element = element.items[j];
-            if (sub_element.title.toLowerCase().includes(value.toLowerCase())) {
+        if (element.content) {
+          element.content.left_section_paragraphs.forEach((paragraph) => {
+            if (paragraph.toLowerCase().includes(value.toLowerCase())) {
               newResults.push({
-                name: sub_element.title,
-                url: sub_element.title,
+                name: paragraph,
+                url: element.title,
                 id: ID(),
+                type_result: ResultType.Description,
               });
             }
-          }
+          });
+        }
+        if (element.endpoints && element.endpoints.length) {
+          element.endpoints.forEach((endpoint) => {
+            if (endpoint.title.toLowerCase().includes(value.toLowerCase())) {
+              newResults.push({
+                name: endpoint.title,
+                url: element.title,
+                id: ID(),
+                type_result: ResultType.TitleEndpoint,
+              });
+            } else if (endpoint.description.toLowerCase().includes(value.toLowerCase())) {
+              newResults.push({
+                name: endpoint.description,
+                url: element.title,
+                id: ID(),
+                type_result: ResultType.DescriptionEndpoint,
+              });
+            } else if (endpoint.url.toLowerCase().includes(value.toLowerCase())) {
+              newResults.push({
+                name: endpoint.url,
+                url: element.title,
+                id: ID(),
+                type_result: ResultType.UrlEndpoint,
+              });
+            }
+          });
         }
       }
       setResults(newResults);
@@ -73,6 +127,7 @@ export const SearchModal: FC<{
       setResults(initialValues);
     }
   }, [value]);
+
   return (
     <div
       className={style.SearchModalBackground}
@@ -130,6 +185,14 @@ export const SearchModal: FC<{
                 onClick={() => navigateToUrl(n.url)}
                 key={n.id}
               >
+                <span
+                  style={{
+                    ...resultTypeLabelStyles[n.type_result],
+                  }}
+                  className={style.ResultTypeLabel}
+                >
+                  {n.type_result}
+                </span>
                 {n.name}
               </button>
             );

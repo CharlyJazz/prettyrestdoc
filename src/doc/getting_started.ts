@@ -4,16 +4,18 @@ const documentation: SectionItem = {
   content: {
     left_section_title: "API Reference",
     left_section_paragraphs: [
-      "The PetStore API is organized around [REST]. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns [JSON-encoded responses], and uses standard HTTP response codes, authentication, and verbs.",
-      "You can use the PetStore API in test mode, which does not affect your live data or interact with the banking networks. The API key you use to authenticate the request determines whether the request is live mode or test mode.",
-      "The PetStore API differs for every account as we release new versions and tailor functionality. Log in to see docs customized to your version of the API, with your test key and data.",
+      "In order to provide accurate transactional records of client activities on the ShopWorks platform without impacting the performance of the application, a Data Warehouse has been created which  can be accessed via a number of APIs.",
+      "The ShopWorks Data Warehouse is designed to allow customers to access the underlying processed  data from the ShopWorks platform, without affecting any business-critical functionality such as  Payroll Files. It achieves this by taking the client-facing application and making an exact copy of it.  When an action is performed on the platform, this is recorded and sent to the Data Warehouse  application. The Data Warehouse can then apply the rules that are bespoke to the client, and output  Cost and Shift information. Clients can then access this information and data, and upload or import  it into their preferred data visualization or business intelligence tool."
     ],
     right_section_title: "JUST GETTING STARTED?",
     right_section_paragraphs: [
-      "The PetStore API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.",
+      "The Data Warehouse allows clients to access and extract accurate transactional records of activities  undertaken on and data manipulated through the ShopWorks platform, without impacting the  performance of the application. This is facilitated via an API.",
     ],
     right_box_snippet_title: "BASE URL",
-    right_box_snippet_content: "https://api.petstore.com/v1",
+    right_box_snippet_content: "https://reporting.api.theshopworks.com/",
+    images: [
+      "./diagram.png",
+    ],
   },
 };
 

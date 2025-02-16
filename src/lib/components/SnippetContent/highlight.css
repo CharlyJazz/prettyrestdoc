@@ -1,16 +1,30 @@
 :root {
-  --hljs-attr: #e6db74;
-  --hljs-symbols: #fff;
-  --hljs-number-color: rgb(174, 129, 255);
-  --hljs-string-color: rgb(230, 219, 116);
-  --hljs-literal-color: #66d9ef;
+  --hljs-attr: #6fa62e;
+  --hljs-symbols: #7fc62f;
+  --hljs-number-color: #5c862c;
+  --hljs-string-color: #3c670b;
+  --hljs-literal-color: #92c557;
+  --font-size-for-snippet: 11px;
 }
 
 .json.hljs {
   font-family: Roboto;
   color: var(--hljs-symbols);
   font-size: var(--snippet-font-size);
-  font-weight: 500;
+  font-weight: 400;
+  direction: ltr;
+  font-size: var(--font-size-for-snippet);
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  line-height: 1.5;
+  -o-tab-size: 4;
+  tab-size: 4;
+  text-align: left;
+  text-shadow: none;
+  white-space: pre;
+  word-break: normal;
+  word-spacing: normal;
 }
 
 .hljs-attr {
@@ -20,7 +34,7 @@
 .hljs-string {
   color: var(--hljs-string-color);
 }
-
+s
 .hljs-literal {
   color: var(--hljs-literal-color);
 }
